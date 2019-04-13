@@ -1,4 +1,4 @@
-# 9-bonus/lifx
+# 6-bonus/lifx
 
 LIFX Wi-Fi LED Smart Lights are energy efficient LED lights that you control with your iPhone, Android, or a variety of Apps & Services
 
