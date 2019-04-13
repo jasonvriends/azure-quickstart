@@ -72,6 +72,7 @@ $repoURL="https://github.com/jasonvriends/azure-quickstart.git" # The URL for th
 $branch="master"                                                # The branch of the GitHub repository to use.
 $storageAccountType="Standard_LRS"                              # Storage Account Type
 $runtime="node"                                                 # The language worker runtime to load in the function app.
+$folderPath="6-bonus/lifx/lifxdemoProj"                         # The folder path of the source control. Path must be relative.
 
 # Resource Group Creation
 $DeploymentResourceGroup="$ResourceGroupName-$AzureEnvironment-rg"
@@ -79,7 +80,7 @@ New-AzureRmResourceGroup -Name "$DeploymentResourceGroup" -Location "$AzureRegio
 
 # Template Deployment to Resource Group
 $TemplateUri="https://github.com/jasonvriends/azure-quickstart/raw/master/6-bonus/lifx/azuredeploy.json"
-New-AzResourceGroupDeployment -Name "deploy-lifxdemo" -ResourceGroupName "$DeploymentResourceGroup" -TemplateUri "$TemplateUri" -appName "$appName" -lifxPersonalAccessToken "$lifxPersonalAccessToken" -repoURL "$repoURL" -branch "$branch" -storageAccountType "$storageAccountType" -runtime "$runtime"
+New-AzResourceGroupDeployment -Name "deploy-lifxdemo" -ResourceGroupName "$DeploymentResourceGroup" -TemplateUri "$TemplateUri" -appName "$appName" -lifxPersonalAccessToken "$lifxPersonalAccessToken" -repoURL "$repoURL" -branch "$branch" -storageAccountType "$storageAccountType" -runtime "$runtime" -folderPath "$folderPath"
 
 
 ```
@@ -100,6 +101,8 @@ repoURL="https://github.com/jasonvriends/azure-quickstart.git" # The URL for the
 branch="master"                                                # The branch of the GitHub repository to use.
 storageAccountType="Standard_LRS"                              # Storage Account Type
 runtime="node"                                                 # The language worker runtime to load in the function app.
+folderPath="6-bonus/lifx/lifxdemoProj"                         # The folder path of the source control. Path must be relative.
+
 
 # Resource Group Creation
 DeploymentResourceGroup="$ResourceGroupName-$AzureEnvironment-rg"
@@ -107,7 +110,7 @@ az group create -n "$DeploymentResourceGroup" -l "$AzureRegion"
 
 # Template Deployment to Resource Group
 TemplateUri="https://github.com/jasonvriends/azure-quickstart/raw/master/6-bonus/lifx/azuredeploy.json"
-az group deployment create --name "deploy-guacamole" --resource-group "$DeploymentResourceGroup" --template-uri "$TemplateUri" --parameters appName="$appName" lifxPersonalAccessToken="$lifxPersonalAccessToken" repoURL="$repoURL" branch="$branch" storageAccountType="$storageAccountType" runtime="$runtime"
+az group deployment create --name "deploy-guacamole" --resource-group "$DeploymentResourceGroup" --template-uri "$TemplateUri" --parameters appName="$appName" lifxPersonalAccessToken="$lifxPersonalAccessToken" repoURL="$repoURL" branch="$branch" storageAccountType="$storageAccountType" runtime="$runtime" folderPath="$folderPath"
 
 
 ```

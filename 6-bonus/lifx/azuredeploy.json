@@ -23,9 +23,16 @@
     },  
     "branch": {
       "type": "string",
- "defaultValue": "master",      
+      "defaultValue": "master",      
       "metadata": {
         "description": "The branch of the GitHub repository to use."
+      }
+    },            
+    "folderPath": {
+      "type": "string",
+      "defaultValue": "6-bonus/lifx/lifxdemoProj",      
+      "metadata": {
+        "description": "The folder path of the source control. Path must be relative."
       }
     },            
     "storageAccountType": {

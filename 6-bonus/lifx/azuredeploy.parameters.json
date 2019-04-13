@@ -14,6 +14,9 @@
     "branch": {
       "value": "master"
     },
+    "folderPath": {
+      "value": "6-bonus/lifx/lifxdemoProj"
+    },
     "storageAccountType": {
       "value": "Standard_LRS"
     },
