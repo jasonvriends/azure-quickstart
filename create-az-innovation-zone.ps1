@@ -171,10 +171,11 @@ ForEach($RG in $RGs) {
 # Deploy Azure Virtual Network
 ##################################################################################################################
 
-New-AzResourceGroupDeployment -ErrorVariable deployError -ErrorAction SilentlyContinue -Force -Name "deploy-vnet" -ResourceGroupName "$azureNetworkingRG" -TemplateFile "$ScriptPath/2-virtual-network/azuredeploy.json" -TemplateParameterFile "$ScriptPath/2-virtual-network/azuredeploy.parameters.json" -externalIp $ExternalIp
+New-AzResourceGroupDeployment -ErrorVariable deployError -ErrorAction SilentlyContinue -Name "deploy-vnet" -ResourceGroupName "$azureNetworkingRG" -TemplateFile "$ScriptPath/2-virtual-network/azuredeploy.json" -TemplateParameterFile "$ScriptPath/2-virtual-network/azuredeploy.parameters.json" -externalIp $ExternalIp
 
 if ($deployError) {
   Write-Warning "New-AzResourceGroupDeployment: 'deploy-vnet' failed."
+  Write-Warning "$deployError"
   Exit 1
 } else {
     Write-Host "New-AzResourceGroupDeployment: 'deploy-vnet' successful."  
@@ -184,10 +185,11 @@ if ($deployError) {
 # Deploy Apache Guacamole
 ##################################################################################################################
 
-New-AzResourceGroupDeployment -ErrorVariable deployError -ErrorAction SilentlyContinue -Force -Name "deploy-guac" -ResourceGroupName "$azureGuacamoleRG" -TemplateFile "$ScriptPath/4-apache-guacamole/azuredeploy.json" -TemplateParameterFile "$ScriptPath/4-apache-guacamole/azuredeploy.parameters.json" -pwdOrPsk $securepwdOrPsk -mysqlRootPwd $securemysqlRootPwd -dbUserPwd $securedbUserPwd -Size "Standard_D2s_v3"
+New-AzResourceGroupDeployment -ErrorVariable deployError -ErrorAction SilentlyContinue -AsJob -Force -Name "deploy-guac" -ResourceGroupName "$azureGuacamoleRG" -TemplateFile "$ScriptPath/4-apache-guacamole/azuredeploy.json" -TemplateParameterFile "$ScriptPath/4-apache-guacamole/azuredeploy.parameters.json" -pwdOrPsk $securepwdOrPsk -mysqlRootPwd $securemysqlRootPwd -dbUserPwd $securedbUserPwd -Size "Standard_D2s_v3"
 
 if ($deployError) {
   Write-Warning "New-AzResourceGroupDeployment: 'deploy-guac' failed."
+  Write-Warning "$deployError"
   Exit 1
 } else {
     Write-Host "New-AzResourceGroupDeployment: 'deploy-guac' successful."  
@@ -197,10 +199,11 @@ if ($deployError) {
 # Deploy Cloud Desktop
 ##################################################################################################################
 
-New-AzResourceGroupDeployment -ErrorVariable deployError -ErrorAction SilentlyContinue -Force -Name "deploy-desktop" -ResourceGroupName "$AzureDesktopsRG" -TemplateFile "$ScriptPath/3-virtual-machines/azuredeploy.json" -TemplateParameterFile "$ScriptPath/3-virtual-machines/azuredeploy.parameters.json" -pwdOrPsk $securepwdOrPsk -dnsLabelPrefix "desktop" -Size "Standard_D2s_v3" -osPublisher "MicrosoftWindowsServer" -osOffer "WindowsServer" -osSKU "2019-Datacenter"
+New-AzResourceGroupDeployment -ErrorVariable deployError -ErrorAction SilentlyContinue -AsJob -Force -Name "deploy-desktop" -ResourceGroupName "$AzureDesktopsRG" -TemplateFile "$ScriptPath/3-virtual-machines/azuredeploy.json" -TemplateParameterFile "$ScriptPath/3-virtual-machines/azuredeploy.parameters.json" -pwdOrPsk $securepwdOrPsk -dnsLabelPrefix "desktop" -Size "Standard_D2s_v3" -osPublisher "MicrosoftWindowsServer" -osOffer "WindowsServer" -osSKU "2019-Datacenter"
 
 if ($deployError) {
   Write-Warning "New-AzResourceGroupDeployment: 'deploy-desktop' failed."
+  Write-Warning "$deployError"
   Exit 1
 } else {
     Write-Host "New-AzResourceGroupDeployment: 'deploy-desktop' successful."  
