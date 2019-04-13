@@ -69,17 +69,18 @@ git clone https://github.com/jasonvriends/azure-quickstart.git
 
 ```
 
-## An example of adding policy exclusions post deployment
+## How to add Azure Policy exclusions post deployment?
 
-In this example, we are allowing the creation of Public IPs in the guacamole-innovation-rg Resource Group
+In the following example, we are allowing the creation of **Public IPs** in the **guacamole-innovation-rg** Resource Group. However, you can customize this by changing the variable **$RG** to your desired Resource Group name and **$PolicyName** to your desired Azure Policy.
 
 ```powershell
 
-$RG="guacamole-innovation-rg"                               # Resource Group to exclude from the policy
-$AzureSubscriptionId="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" # Azure Subscription ID to apply this policy to.
+$RG="guacamole-innovation-rg"                                      # Resource Group to exclude from the policy
+$PolicyName="Network: Restrict creation of PIPs to authorized RGs" # Name of the policy to add the exclusion to
+$AzureSubscriptionId="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"        # Azure Subscription ID to apply this policy to.
 
 $ExcludedResourceGroup = Get-AzureRmResourceGroup -Name $RG
-$PolicyAssignment = Get-AzureRmPolicyAssignment -Name 'Network: Restrict creation of PIPs to authorized RGs' -Scope "/subscriptions/$AzureSubscriptionId"
+$PolicyAssignment = Get-AzureRmPolicyAssignment -Name $PolicyName -Scope "/subscriptions/$AzureSubscriptionId"
 $arrExcludedResourceGroups = $PolicyAssignment.Properties.notScopes
 $arrExcludedResourceGroups += $ExcludedResourceGroup.ResourceId
 Set-AzureRmPolicyAssignment -Id $PolicyAssignment.ResourceId -NotScope $arrExcludedResourceGroups
