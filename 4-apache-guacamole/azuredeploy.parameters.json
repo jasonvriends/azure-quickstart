@@ -1,0 +1,49 @@
+
+
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "dnsLabelPrefix": {
+        "value": "guac"
+      },
+      "size": {
+        "value": "Standard_B1ms"
+      },
+      "adminUsername": {
+        "value": "vmadmin"
+      },
+      "authenticationType": {
+        "value": "password"
+      },
+      "pwdOrPsk": {
+        "value": ""
+      },
+      "vnetName": {
+        "value": "innovation-vnet"
+      },
+      "vnetSubnetName": {
+        "value": "paz-subnet"
+      },
+      "vnetResourceGroup": {
+        "value": "networking-innovation-rg"
+      },
+      "ipAddress": {
+        "value": "public"
+      },
+      "mysqlRootPwd":{
+        "value": ""
+      },
+      "dbName":{
+        "value": "guacamole_db"
+      },
+      "dbUser":{
+        "value": "guacamole_user"
+      },
+      "dbUserPwd":{
+        "value": ""
+      }
+  }
+}
+
+

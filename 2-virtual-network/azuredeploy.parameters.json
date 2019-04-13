@@ -1,0 +1,39 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "vnetName": {
+      "value": "innovation-vnet"
+    },
+    "vnetAddressPrefix": {
+      "value": "10.0.0.0/8"
+    },
+    "subnet1Name": {
+      "value": "paz"
+    },
+    "subnet1AddressPrefix": {
+      "value": "10.0.1.0/24"
+    },
+    "subnet2Name": {
+      "value": "front"
+    },
+    "subnet2AddressPrefix": {
+      "value": "10.0.2.0/24"
+    },
+    "subnet3Name": {
+      "value": "back"
+    },
+    "subnet3AddressPrefix": {
+      "value": "10.0.3.0/24"
+    },
+    "subnet4Name": {
+      "value": "desktops"
+    },
+    "subnet4AddressPrefix": {
+      "value": "10.0.4.0/24"
+    },
+    "externalIp": {
+      "value": ["0.0.0.0"]
+    }
+  }
+}

@@ -1,0 +1,58 @@
+
+
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "dnsLabelPrefix": {
+        "value": "winsvr"
+      },
+      "size": {
+        "value": "Standard_B1ms"
+      },
+      "osPublisher": {
+        "value": "MicrosoftWindowsServer"
+      },
+      "osOffer": {
+        "value": "WindowsServer"
+      },
+      "osSKU": {
+        "value": "2019-Datacenter"
+      },
+      "osVersion": {
+        "value": "latest"
+      },
+      "instances": {
+        "value": 1
+      },
+      "extensionUri": {
+        "value": ""
+      },        
+      "extensionCommand": {
+        "value": ""            
+      },        
+      "adminUsername": {
+        "value": "vmadmin"
+      },
+      "authenticationType": {
+        "value": "password"
+      },
+      "pwdOrPsk": {
+        "value": "@Canada2019@"
+      },
+      "vnetName": {
+        "value": "innovation-vnet"
+      },
+      "vnetSubnetName": {
+        "value": "desktops-subnet"
+      },
+      "vnetResourceGroup": {
+        "value": "networking-innovation-rg"
+      },
+      "ipAddress": {
+        "value": "private"
+      }
+  }
+}
+
+

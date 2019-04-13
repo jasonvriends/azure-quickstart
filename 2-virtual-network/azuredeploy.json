@@ -1,0 +1,506 @@
+{ 
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+
+    "vnetName": {
+      "type": "string",
+      "defaultValue": "innovation-vnet",
+      "metadata": {
+        "description": "Input the name of the Virtual Network."
+      }
+    },
+    "vnetAddressPrefix": {
+      "type": "string",
+      "defaultValue": "10.0.0.0/8",
+      "metadata": {
+       "description": "Input the address prefix for the Virtual Network."
+      }
+    },
+    "subnet1Name": {
+      "type": "string",
+      "defaultValue": "paz",
+      "metadata": {
+        "description": "Input the name of your Public Access Zone subnet."
+      }
+    },
+    "subnet1AddressPrefix": {
+      "type": "string",
+      "defaultValue": "10.0.1.0/24",
+      "metadata": {
+        "description": "Input the address prefix for your Public Access Zone subnet."
+      }
+    },
+    "subnet2Name": {
+      "type": "string",
+      "defaultValue": "front",
+      "metadata": {
+        "description": "Input the name of your application tier subnet."
+      }
+    },
+    "subnet2AddressPrefix": {
+      "type": "string",
+      "defaultValue": "10.0.2.0/24",
+      "metadata": {
+        "description": "Input the address prefix for your application tier subnet."
+      }
+    },
+    "subnet3Name": {
+      "type": "string",
+      "defaultValue": "back",
+      "metadata": {
+        "description": "Input the name of your data tier subnet."
+      }
+    },
+    "subnet3AddressPrefix": {
+      "type": "string",
+      "defaultValue": "10.0.3.0/24",
+      "metadata": {
+        "description": "Input the address prefix for your data tier subnet."
+      }
+    },
+    "subnet4Name": {
+      "type": "string",
+      "defaultValue": "desktops",
+      "metadata": {
+        "description": "Input the name of your desktops subnet."
+      }
+    },
+    "subnet4AddressPrefix": {
+      "type": "string",
+      "defaultValue": "10.0.4.0/24",
+      "metadata": {
+        "description": "Input the address prefix for your desktops subnet."
+      }
+    },
+    "externalIp": {
+      "type": "array",
+      "defaultValue": ["0.0.0.0"],
+      "metadata": {
+        "description": "Input the external IP address(s).<br/><br/>Note: This will allow incoming traffic to the Public Access Zone from this IP address."
+      }
+    }   
+
+  },
+
+  "variables": {
+
+    "vnetName": "[trim(tolower(parameters('vnetName')))]",
+    "vnetAddressPrefix": "[trim(parameters('vnetAddressPrefix'))]",
+    "subnet1Name": "[trim(tolower(parameters('subnet1Name')))]",
+    "subnet2Name": "[trim(tolower(parameters('subnet2Name')))]",
+    "subnet3Name": "[trim(tolower(parameters('subnet3Name')))]",
+    "subnet4Name": "[trim(tolower(parameters('subnet4Name')))]",
+    "subnet1AddressPrefix":"[trim(parameters('subnet1AddressPrefix'))]",
+    "subnet2AddressPrefix":"[trim(parameters('subnet2AddressPrefix'))]",
+    "subnet3AddressPrefix":"[trim(parameters('subnet3AddressPrefix'))]",
+    "subnet4AddressPrefix":"[trim(parameters('subnet4AddressPrefix'))]",
+    "externalIp":"[parameters('externalIp')]"
+
+  },   
+
+  "resources": [
+  
+    {
+      "apiVersion": "2017-10-01",
+      "type": "Microsoft.Network/networkSecurityGroups",
+      "name": "[concat(variables('subnet1Name'),'-nsg')]",
+      "location": "[resourceGroup().location]",
+
+      "properties": {
+
+        "securityRules": [
+
+          {
+            "name": "allow-inbound-ssh-externalip",
+            "properties": {
+              "description": "Allow incoming SSH from external ip on port 22.",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "22",
+              "SourceAddressPrefixes": "[variables('externalIp')]",
+              "destinationAddressPrefix": "[variables('subnet1AddressPrefix')]",
+              "access": "Allow",
+              "priority": 100,
+              "direction": "Inbound"
+            }
+          },
+          
+          {
+            "name": "allow-inbound-rdp-externalip",
+            "properties": {
+              "description": "Allow incoming RDP from external ip on port 3389.",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "3389",
+              "SourceAddressPrefixes": "[variables('externalIp')]",
+              "destinationAddressPrefix": "[variables('subnet1AddressPrefix')]",
+              "access": "Allow",
+              "priority": 110,
+              "direction": "Inbound"
+            }
+          },  
+
+          {
+            "name": "allow-inbound-web-externalip",
+            "properties": {
+              "description": "Allow incoming HTTP from external ip on port 80 and 8080.",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRanges": ["80","8080"],             
+              "SourceAddressPrefixes": "[variables('externalIp')]",
+              "destinationAddressPrefix": "[variables('subnet1AddressPrefix')]",
+              "access": "Allow",
+              "priority": 120,
+              "direction": "Inbound"
+            }
+          },
+
+          {
+            "name": "allow-inbound-secureweb-externalip",
+            "properties": {
+              "description": "Allow incoming HTTPS from external ip on port 443 and 8443.",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRanges": ["443","8443"],
+              "SourceAddressPrefixes": "[variables('externalIp')]",
+              "destinationAddressPrefix": "[variables('subnet1AddressPrefix')]",
+              "access": "Allow",
+              "priority": 130,
+              "direction": "Inbound"
+            }
+          },
+          
+          {
+            "name": "deny-inbound-all-vnet",
+            "properties": {
+              "description": "Deny inbound Vnet communication.",
+              "protocol": "*",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "[variables('vnetAddressPrefix')]",
+              "destinationAddressPrefix": "[variables('vnetAddressPrefix')]",
+              "access": "Deny",
+              "priority": 4000,
+              "direction": "Inbound"
+            }
+          }          
+
+        ]
+
+      }
+
+    },
+
+   {
+      "apiVersion": "2017-10-01",
+      "type": "Microsoft.Network/networkSecurityGroups",
+      "name": "[concat(variables('subnet2Name'),'-nsg')]",
+      "location": "[resourceGroup().location]",
+
+      "properties": {
+
+        "securityRules": [
+
+          {
+            "name": "[concat('allow-inbound-ssh-',variables('subnet1Name'))]",
+            "properties": {
+              "description": "[concat('Allow incoming SSH from ', variables('subnet1Name'),' on port 22.')]",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "22",
+              "sourceAddressPrefix": "[variables('subnet1AddressPrefix')]",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 100,
+              "direction": "Inbound"
+            }
+          },
+
+          {
+            "name": "[concat('allow-inbound-rdp-',variables('subnet1Name'))]",
+            "properties": {
+              "description": "[concat('Allow incoming RDP from ', variables('subnet1Name'), ' on port 3389.')]",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "3389",
+              "sourceAddressPrefix": "[variables('subnet1AddressPrefix')]",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 110,
+              "direction": "Inbound"
+            }
+          },
+
+          {
+            "name": "[concat('allow-inbound-all-',variables('subnet3Name'))]",
+            "properties": {
+              "description": "[concat('Allow all incoming from ', variables('subnet3Name'))]",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "[variables('subnet3AddressPrefix')]",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 120,
+              "direction": "Inbound"
+            }
+          },
+
+          {
+            "name": "[concat('allow-inbound-all-',variables('subnet4Name'))]",
+            "properties": {
+              "description": "[concat('Allow all incoming from ', variables('subnet4Name'))]",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "[variables('subnet4AddressPrefix')]",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 130,
+              "direction": "Inbound"
+            }
+          },
+
+          {
+            "name": "deny-inbound-all-vnet",
+            "properties": {
+              "description": "Deny inbound Vnet communication.",
+              "protocol": "*",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "[variables('vnetAddressPrefix')]",
+              "destinationAddressPrefix": "*",
+              "access": "Deny",
+              "priority": 4000,
+              "direction": "Inbound"
+            }
+          }         
+
+        ]
+
+      }
+    
+    },
+
+    {
+      "apiVersion": "2017-10-01",
+      "type": "Microsoft.Network/networkSecurityGroups",
+      "name": "[concat(variables('subnet3Name'),'-nsg')]",
+      "location": "[resourceGroup().location]",  
+
+      "properties": {
+
+        "securityRules": [
+
+          {
+            "name": "[concat('allow-inbound-ssh-',variables('subnet1Name'))]",
+            "properties": {
+              "description": "[concat('Allow incoming SSH from ', variables('subnet1Name'),' on port 22.')]",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "22",
+              "sourceAddressPrefix": "[variables('subnet1AddressPrefix')]",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 100,
+              "direction": "Inbound"
+            }
+          },
+
+          {
+            "name": "[concat('allow-inbound-rdp-',variables('subnet1Name'))]",
+            "properties": {
+              "description": "[concat('Allow incoming RDP from ', variables('subnet1Name'), ' on port 3389.')]",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "3389",
+              "sourceAddressPrefix": "[variables('subnet1AddressPrefix')]",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 110,
+              "direction": "Inbound"
+            }
+          },
+
+          {
+            "name": "[concat('allow-inbound-all-',variables('subnet2Name'))]",
+            "properties": {
+              "description": "[concat('Allow all incoming from ', variables('subnet2Name'))]",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "[variables('subnet2AddressPrefix')]",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 120,
+              "direction": "Inbound"
+            }
+          },
+
+
+          {
+            "name": "[concat('allow-inbound-all-',variables('subnet4Name'))]",
+            "properties": {
+              "description": "[concat('Allow all incoming from ', variables('subnet4Name'))]",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "[variables('subnet4AddressPrefix')]",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 130,
+              "direction": "Inbound"
+            }
+          },
+
+          {
+            "name": "deny-inbound-all-vnet",
+            "properties": {
+              "description": "Deny inbound Vnet communication.",
+              "protocol": "*",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "[variables('vnetAddressPrefix')]",
+              "destinationAddressPrefix": "[variables('vnetAddressPrefix')]",
+              "access": "Deny",
+              "priority": 4000,
+              "direction": "Inbound"
+            }
+          }                
+
+        ]
+
+      }
+    
+    },
+
+    {
+      "apiVersion": "2017-10-01",
+      "type": "Microsoft.Network/networkSecurityGroups",
+      "name": "[concat(variables('subnet4Name'),'-nsg')]",
+      "location": "[resourceGroup().location]",  
+
+      "properties": {
+
+        "securityRules": [
+          {
+            "name": "[concat('allow-inbound-ssh-',variables('subnet1Name'))]",
+            "properties": {
+              "description": "[concat('Allow incoming SSH from ', variables('subnet1Name'),' on port 22.')]",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "22",
+              "sourceAddressPrefix": "[variables('subnet1AddressPrefix')]",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 100,
+              "direction": "Inbound"
+            }
+          },
+
+          {
+            "name": "[concat('allow-inbound-rdp-',variables('subnet1Name'))]",
+            "properties": {
+              "description": "[concat('Allow incoming RDP from ', variables('subnet1Name'), ' on port 3389.')]",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "3389",
+              "sourceAddressPrefix": "[variables('subnet1AddressPrefix')]",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 110,
+              "direction": "Inbound"
+            }
+          },
+
+          {
+            "name": "deny-inbound-all-vnet",
+            "properties": {
+              "description": "Deny inbound Vnet communication.",
+              "protocol": "*",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "[variables('vnetAddressPrefix')]",
+              "destinationAddressPrefix": "[variables('vnetAddressPrefix')]",
+              "access": "Deny",
+              "priority": 4000,
+              "direction": "Inbound"
+            }
+          }                
+
+        ]
+
+      }
+    
+    },
+
+    {
+      "apiVersion": "2015-06-15",
+      "type": "Microsoft.Network/virtualNetworks",
+      "name": "[variables('vnetName')]",
+      "location": "[resourceGroup().location]", 
+      "dependsOn": [
+        "[concat('Microsoft.Network/networkSecurityGroups/', variables('subnet1Name'),'-nsg')]",
+        "[concat('Microsoft.Network/networkSecurityGroups/', variables('subnet2Name'),'-nsg')]",
+        "[concat('Microsoft.Network/networkSecurityGroups/', variables('subnet3Name'),'-nsg')]",
+        "[concat('Microsoft.Network/networkSecurityGroups/', variables('subnet4Name'),'-nsg')]"          
+      ],
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": [
+            "[variables('vnetAddressPrefix')]"
+          ]
+        },
+
+        "subnets": [
+          {
+            "name": "[concat(variables('subnet1Name'),'-subnet')]",
+            "properties": {
+              "addressPrefix": "[variables('subnet1AddressPrefix')]",
+              "networkSecurityGroup": {
+                "id": "[concat(resourceId('Microsoft.Network/networkSecurityGroups',variables('subnet1Name')),'-nsg')]"
+              }
+            }
+          },
+
+          {
+            "name": "[concat(variables('subnet2Name'),'-subnet')]",
+            "properties": {
+              "addressPrefix": "[variables('subnet2AddressPrefix')]",
+              "networkSecurityGroup": {
+                "id": "[concat(resourceId('Microsoft.Network/networkSecurityGroups',variables('subnet2Name')),'-nsg')]"
+              }
+            }
+          },
+
+          {
+            "name": "[concat(variables('subnet3Name'),'-subnet')]",
+            "properties": {
+              "addressPrefix": "[variables('subnet3AddressPrefix')]",
+              "networkSecurityGroup": {
+                "id": "[concat(resourceId('Microsoft.Network/networkSecurityGroups',variables('subnet3Name')),'-nsg')]"
+              }
+            }
+          },
+
+          {
+            "name": "[concat(variables('subnet4Name'),'-subnet')]",
+            "properties": {
+              "addressPrefix": "[variables('subnet4AddressPrefix')]",
+              "networkSecurityGroup": {
+                "id": "[concat(resourceId('Microsoft.Network/networkSecurityGroups',variables('subnet4Name')),'-nsg')]"
+              }
+            }
+          }            
+
+        ]
+
+      }
+
+    }
+
+    ]
+
+}
+
