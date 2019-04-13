@@ -71,7 +71,7 @@ git clone https://github.com/jasonvriends/azure-quickstart.git
 
 ## How to add Azure Policy exclusions post deployment?
 
-In the following example, we are allowing the creation of **Public IPs** in the **guacamole-innovation-rg** Resource Group. However, you can customize this by changing the variable **$RG** to your desired Resource Group name and **$PolicyName** to your desired Azure Policy.
+In the following example, we are allowing the creation of **Public IPs** in the **guacamole-innovation-rg** Resource Group. However, you can customize this by changing the variable **$RG** to your desired **Resource Group** name and **$PolicyName** to your desired **Azure Policy**.
 
 ```powershell
 
