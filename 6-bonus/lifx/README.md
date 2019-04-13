@@ -56,60 +56,58 @@ To deploy this quickstart template, you need the following:
     <img src="http://armviz.io/visualizebutton.png"/>
 </a><br/>
 
-- - -
-
 ### Azure PowerShell
 
-```
+```powershell
 
-# Parameters (modifications required)
-$appName="lifxdemo"
-$lifxPersonalAccessToken="" # insert your LIFX personal access token
-$repoURL="https://github.com/jasonvriends/azure-quickstart.git"
-$branch="master"
-$storageAccountType="Standard_LRS"
-$runtime="node"
-$AzureEnvironment="innovation"
-$AzureRegion="eastus"
-$ResourceGroupName="lifxdemo"
+# Azure Subscription Configuration
+$AzureRegion="eastus"                                           # Input the Azure Region to deploy the resources to (i.e. canadaeast, canadacentral, eastus, etc.).
+$AzureEnvironment="innovation"                                  # Input the prefix for your Azure Innovation Lab (i.e. dev, tst, prod, innovation, etc.).
+$ResourceGroupName="lifxdemo"                                   # Input the prefix for the resource group to deploy this quickstart template into.
 
-# Deployment (no modifications required)
+# Template Parameters
+$appName="lifxdemo"                                             # Input the name of the function app that you wish to create.
+$lifxPersonalAccessToken=""                                     # Input your LIFX Personal Access Token from https://cloud.lifx.com
+$repoURL="https://github.com/jasonvriends/azure-quickstart.git" # The URL for the GitHub repository that contains the project to deploy. 
+$branch="master"                                                # The branch of the GitHub repository to use.
+$storageAccountType="Standard_LRS"                              # Storage Account Type
+$runtime="node"                                                 # The language worker runtime to load in the function app.
+
+# Resource Group Creation
 $DeploymentResourceGroup="$ResourceGroupName-$AzureEnvironment-rg"
-$TemplateUri="https://github.com/jasonvriends/azure-quickstart/raw/master/9-bonus/lifx/azuredeploy.json"
-
-# Create Resource Group (no modifications required)
 New-AzureRmResourceGroup -Name "$DeploymentResourceGroup" -Location "$AzureRegion" -ErrorVariable notCreated -ErrorAction SilentlyContinue
 
-# Deploy to Resource Group (no modifications required)
-New-AzResourceGroupDeployment -Name "deploy-lifxdemo" -ResourceGroupName "$DeploymentResourceGroup" -TemplateUri $TemplateUri -appName "$appName" -lifxPersonalAccessToken "$lifxPersonalAccessToken" -repoURL "$repoURL" -branch "$branch" -storageAccountType "$storageAccountType" -location "$AzureRegion" -runtime "$runtime"
+# Template Deployment to Resource Group
+$TemplateUri="https://github.com/jasonvriends/azure-quickstart/raw/master/6-bonus/lifx/azuredeploy.json"
+New-AzResourceGroupDeployment -Name "deploy-lifxdemo" -ResourceGroupName "$DeploymentResourceGroup" -TemplateUri "$TemplateUri" -appName "$appName" -lifxPersonalAccessToken "$lifxPersonalAccessToken" -repoURL "$repoURL" -branch "$branch" -storageAccountType "$storageAccountType" -runtime "$runtime"
+
 
 ```
-
-- - -
 
 ### Azure CLI
 
-```
+```shell
 
-# Parameters (modifications required)
-appName="lifxdemo"
-lifxPersonalAccessToken="c68e939a9961a530b9ce37e4fc5446fae46cfd42f115d1d068982d12553f2c4b" # insert your LIFX personal access token
-repoURL="https://github.com/jasonvriends/azure-quickstart.git"
-branch="master"
-storageAccountType="Standard_LRS"
-runtime="node"
-AzureEnvironment="innovation"
-AzureRegion="eastus"
-ResourceGroupName="lifxdemo"
+# Azure Subscription Configuration
+AzureRegion="eastus"                                           # Input the Azure Region to deploy the resources to (i.e. canadaeast, canadacentral, eastus, etc.).
+AzureEnvironment="innovation"                                  # Input the prefix for your Azure Innovation Lab (i.e. dev, tst, prod, innovation, etc.).
+ResourceGroupName="lifxdemo"                                   # Input the prefix for the resource group to deploy this quickstart template into.
 
-# Deployment (no modifications required)
+# Template Parameters
+appName="lifxdemo"                                             # Input the name of the function app that you wish to create.
+lifxPersonalAccessToken=""                                     # Input your LIFX Personal Access Token from https://cloud.lifx.com
+repoURL="https://github.com/jasonvriends/azure-quickstart.git" # The URL for the GitHub repository that contains the project to deploy. 
+branch="master"                                                # The branch of the GitHub repository to use.
+storageAccountType="Standard_LRS"                              # Storage Account Type
+runtime="node"                                                 # The language worker runtime to load in the function app.
+
+# Resource Group Creation
 DeploymentResourceGroup="$ResourceGroupName-$AzureEnvironment-rg"
-TemplateUri="https://github.com/jasonvriends/azure-quickstart/raw/master/9-bonus/lifx/azuredeploy.json"
-
-# Create Resource Group (no modifications required)
 az group create -n "$DeploymentResourceGroup" -l "$AzureRegion"
 
-# Deploy to Resource Group (no modifications required)
-az group deployment create --name "deploy-lifxdemo" --resource-group "$DeploymentResourceGroup" --template-uri "$TemplateUri" --parameters appName="$appName" lifxPersonalAccessToken="$lifxPersonalAccessToken" repoURL="$repoURL" branch="$branch" storageAccountType="$storageAccountType" runtime="$runtime"
+# Template Deployment to Resource Group
+TemplateUri="https://github.com/jasonvriends/azure-quickstart/raw/master/6-bonus/lifx/azuredeploy.json"
+az group deployment create --name "deploy-guacamole" --resource-group "$DeploymentResourceGroup" --template-uri "$TemplateUri" --parameters appName="$appName" lifxPersonalAccessToken="$lifxPersonalAccessToken" repoURL="$repoURL" branch="$branch" storageAccountType="$storageAccountType" runtime="$runtime"
+
 
 ```
