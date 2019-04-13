@@ -39,7 +39,10 @@ While you could deploy each of the above teampltes individually, below you find 
 * From the dropdown list, select **PowerShell** as your shell.
 * Execute the **code block** below, and answer the questions when prompted.
 
-```bash
+```shell
+
 git clone https://github.com/jasonvriends/azure-quickstart.git
-./azure-quickstart/create-innovation-zone.ps1
+./azure-quickstart/create-az-innovation-zone.ps1
+
+
 ```
