@@ -47,46 +47,77 @@ Param
 )
 
 ##################################################################################################################
+# Import Modules
+##################################################################################################################
+
+# Install from Powershell Gallery https://www.powershellgallery.com/packages/PSWriteColor
+# Install-Module -Name PSWriteColor
+
+if (Get-Module -ListAvailable -Name PSWriteColor) {
+  Import-Module PSWriteColor
+  Write-Color -Text "Import PSWriteColor module"
+} 
+
+else {
+  Write-Color -Text "PowerShell 'PSWriteColor' module does not exist."
+  Install-Module -OutVariable getPsModuleOutput -ErrorVariable getPsModuleError -ErrorAction SilentlyContinue -Name PSWriteColor -Force > $null
+
+  if ($getPsModuleError)
+  {
+      Write-Color -Text "-> Installing PowerShell 'PSWriteColor' module fail."
+      Write-Color -Text "--> $getPsModuleError"
+      Exit 1
+  } else {
+      Write-Color -Text "-> Installing PowerShell 'PSWriteColor' module"," pass", "." -Color Gray, Green, Gray
+  }
+
+  Write-Color -Text "Import PSWriteColor module"
+  Import-Module PSWriteColor
+}
+
+#Requires -Modules PSWriteColor
+
+##################################################################################################################
 # Verify Parameters not NULL, EMPTY, or have WHITESPACE
 ##################################################################################################################
 
 if([string]::IsNullOrWhiteSpace($AzureRegion)) {            
-    Write-Warning "AzureRegion can't be NULL, EMPTY, or have WHITESPACE."
+  Write-Color -Text "AzureRegion can't be NULL, EMPTY, or have WHITESPACE." -Color Red
     Exit 1
 }
 
 if([string]::IsNullOrWhiteSpace($AzureEnvironment)) {            
-  Write-Warning "AzureEnvironment can't be NULL, EMPTY, or have WHITESPACE."
+  Write-Color -Text "AzureEnvironment can't be NULL, EMPTY, or have WHITESPACE." -Color Red
   Exit 1
 }
 
 if([string]::IsNullOrWhiteSpace($PwdOrPsk)) {            
-  Write-Warning "PwdOrPsk can't be NULL, EMPTY, or have WHITESPACE."
+  Write-Color -Text "PwdOrPsk can't be NULL, EMPTY, or have WHITESPACE." -Color Red
   Exit 1
 }
 
 if([string]::IsNullOrWhiteSpace($MysqlRootPwd)) {            
-  Write-Warning "MysqlRootPwd can't be NULL, EMPTY, or have WHITESPACE."
+  Write-Color -Text "MysqlRootPwd can't be NULL, EMPTY, or have WHITESPACE." -Color Red
   Exit 1
 }
 
 if([string]::IsNullOrWhiteSpace($DbUserPwd)) {            
-  Write-Warning "DbUserPwd can't be NULL, EMPTY, or have WHITESPACE."
+  Write-Color -Text "DbUserPwd can't be NULL, EMPTY, or have WHITESPACE." -Color Red
   Exit 1
 }
 
 if([string]::IsNullOrWhiteSpace($ExternalIp)) {            
-  Write-Warning "ExternalIp can't be NULL, EMPTY, or have WHITESPACE."
+  Write-Color -Text "ExternalIp can't be NULL, EMPTY, or have WHITESPACE." -Color Red
   Exit 1
 }
 
 if([string]::IsNullOrWhiteSpace($AzureSubscriptionId)) {            
-  Write-Warning "AzureSubscriptionId can't be NULL, EMPTY, or have WHITESPACE."
+  Write-Color -Text "AzureSubscriptionId can't be NULL, EMPTY, or have WHITESPACE." -Color Red
   Exit 1
 }
 
 if([string]::IsNullOrWhiteSpace($PowerManagementTimeZone)) {            
-  Write-Warning "PowerManagementTimeZone can't be NULL, EMPTY, or have WHITESPACE."
+  Write-Color -Text "PowerManagementTimeZone can't be NULL, EMPTY, or have WHITESPACE." -Color Red
   Exit 1
 }
 
@@ -94,20 +125,24 @@ if([string]::IsNullOrWhiteSpace($PowerManagementTimeZone)) {
 $ScriptPath = split-path -parent $MyInvocation.MyCommand.Definition
 
 ##################################################################################################################
-# Write-Host Parameters
+# Script Execution Confirmation
 ##################################################################################################################
 
-Write-Host "========================================================================="
-Write-Host "AzureRegion: $AzureRegion"
-Write-Host "AzureEnvironment: $AzureEnvironment"
-Write-Host "PwdOrPsk: $PwdOrPsk"
-Write-Host "MysqlRootPwd: $MysqlRootPwd"
-Write-Host "DbUserPwd: $DbUserPwd"            
-Write-Host "ExternalIp: $ExternalIp"
-Write-Host "AzureSubscriptionId: $AzureSubscriptionId"
-Write-Host "PowerManagementTimeZone: $PowerManagementTimeZone"
-Write-Host "ScriptPath: $ScriptPath"
-Write-Host "========================================================================="
+Clear-Host
+
+Write-Color -Text "=========================================================================" -Color Gray
+Write-Color -Text "Deployment Parameters" -Color Gray
+Write-Color -Text "=========================================================================" -Color Gray
+Write-Color -Text "AzureRegion: ", "$AzureRegion" -Color Gray, Yellow
+Write-Color -Text "AzureEnvironment: ", "$AzureEnvironment" -Color Gray, Yellow
+Write-Color -Text "PwdOrPsk: ", "$PwdOrPsk" -Color Gray, Yellow
+Write-Color -Text "MysqlRootPwd: ", "$MysqlRootPwd" -Color Gray, Yellow
+Write-Color -Text "DbUserPwd: ", "$DbUserPwd" -Color Gray, Yellow
+Write-Color -Text "ExternalIp: ", "$ExternalIp" -Color Gray, Yellow
+Write-Color -Text "AzureSubscriptionId: ", "$AzureSubscriptionId" -Color Gray, Yellow
+Write-Color -Text "PowerManagementTimeZone: ", "$PowerManagementTimeZone" -Color Gray, Yellow
+Write-Color -Text "ScriptPath: ", "$ScriptPath" -Color Gray, Yellow
+Write-Color -Text "========================================================================="
 
 # Convert passwords to Secure String
 $securePwdOrPsk=ConvertTo-SecureString $PwdOrPsk -AsPlainText -Force
@@ -115,54 +150,81 @@ $secureMysqlRootPwd=ConvertTo-SecureString $MysqlRootPwd -AsPlainText -Force
 $secureDbUserPwd=ConvertTo-SecureString $DbUserPwd -AsPlainText -Force
 
 # Confirm execution
-Write-Host -NoNewLine 'Press any key to continue...';
-$null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
+Write-Color -Text 'Press any key to continue...' -Color Yellow
+$null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown')
+
+Write-Color -Text "=========================================================================" -Color Gray
+Write-Color -Text "" -Color Gray
 
 ##################################################################################################################
-# Select Azure Subscription
+# Azure Subscription
 ##################################################################################################################
 
-Get-AzureRmSubscription -SubscriptionId $AzureSubscriptionId -ErrorVariable notPresent -ErrorAction SilentlyContinue | Select-AzureRmSubscription -ErrorVariable notPresent -ErrorAction SilentlyContinue
-if ($notPresent)
+Write-Color -Text "Azure Subscription" -Color Gray
+
+# Get Azure Subscription
+
+Get-AzureRmSubscription -OutVariable getSubscriptionOutput -ErrorVariable getSubscriptionError -ErrorAction SilentlyContinue -SubscriptionId $AzureSubscriptionId > $null
+
+if ($getSubscriptionError)
 {
-    Write-Warning "Select-AzureRmSubscription: '$AzureSubscriptionId' not found."
+    Write-Color -Text "-> Get Azure subscription Id: $AzureSubscriptionId"," fail", "." -Color Gray, Red, Gray
+    Write-Color -Text "--> $getSubscriptionError" -Color Red
     Exit 1
 } else {
-    Write-Host "Select-AzureRmSubscription: '$AzureSubscriptionId' successful."
+    Write-Color -Text "-> Get Azure subscription Id: $AzureSubscriptionId"," pass", "." -Color Gray, Green, Gray
 }
 
-##################################################################################################################
-# Define Specialized Resource Groups
-##################################################################################################################
+# Set Azure Subscription
 
-$AzureNetworkingRG="networking-$azureEnvironment-rg" # Resource Group for Azure Virtual Networks
-$AzureAutomationRG="automation-$azureEnvironment-rg" # Resource Group for Azure Automation
-$AzureGuacamoleRG="guacamole-$azureEnvironment-rg"   # Resource Group for Apache Guacamole
-$AzureDesktopsRG="desktops-$azureEnvironment-rg"     # Resource Group for Cloud Desktops
+$getSubscriptionOutput | Select-AzureRmSubscription -OutVariable setSubscriptionOutput -ErrorVariable setSubscriptionError -ErrorAction SilentlyContinue > $null
+
+if ($setSubscriptionError)
+{
+    Write-Color -Text "-> Set Azure subscription Id: $AzureSubscriptionId"," fail", "." -Color Gray, Red, Gray
+    Write-Color -Text "--> $setSubscriptionError" -Color Red
+    Exit 1
+} else {
+    Write-Color -Text "-> Set Azure subscription Id: $AzureSubscriptionId"," pass", "." -Color Gray, Green, Gray
+}
 
 ##################################################################################################################
 # Create Resource Groups
 ##################################################################################################################
 
+Write-Color -Text " " -Color Gray
+Write-Color -Text "Resource Groups" -Color Gray
+
+$AzureAutomationRG="automation-$azureEnvironment-rg" # Resource Group for Azure Automation
+$AzureNetworkingRG="networking-$azureEnvironment-rg" # Resource Group for Azure Virtual Networks
+$AzureGuacamoleRG="guacamole-$azureEnvironment-rg"   # Resource Group for Apache Guacamole
+$AzureDesktopsRG="desktops-$azureEnvironment-rg"     # Resource Group for Cloud Desktops
+
 $AzureResourceGroups="automation,networking,desktops,guacamole"
 $RGs = $AzureResourceGroups.split(",");
 ForEach($RG in $RGs) {   
 
-  Get-AzureRmResourceGroup -Name "$RG-$AzureEnvironment-rg" -ErrorVariable notPresent -ErrorAction SilentlyContinue
+  Get-AzureRmResourceGroup -OutVariable getRgOutput -ErrorVariable getRgError -ErrorAction SilentlyContinue -Name "$RG-$AzureEnvironment-rg" > $null
 
-  if ($notPresent) {
+  if ($getRgError) { # Resource Group not found
 
-    New-AzureRmResourceGroup -Name "$RG-$AzureEnvironment-rg" -Location $AzureRegion -Tag @{powerManagement="Disabled;18:00"} -ErrorVariable notCreated -ErrorAction SilentlyContinue
-
-    if ($notCreated) {
-      Write-Warning "New-AzureRmResourceGroup: '$RG-$AzureEnvironment-rg' failed."
-      Exit 1
-    } else {
-      Write-Host "New-AzureRmResourceGroup: '$RG-$AzureEnvironment-rg.' successful"      
+    # Create Resource Group
+    New-AzureRmResourceGroup -OutVariable getNewRgOutput -ErrorVariable getNewRgError -ErrorAction SilentlyContinue `
+    -Name "$RG-$AzureEnvironment-rg" -Location $AzureRegion -Tag @{powerManagement="Disabled;18:00"} > $null
+  
+    if ($getNewRgError)
+    { # Error creating Resource Group
+        Write-Color -Text "-> Create Resource Group: $RG-$AzureEnvironment-rg"," fail","." -Color Gray, Red, Gray
+        Write-Color -Text "--> $getNewRgError" -Color Red
+        Exit 1
+    } # Successful in creating Resource Group
+      else {
+        Write-Color -Text "-> Create Resource Group: $RG-$AzureEnvironment-rg"," pass","." -Color Gray, Green, Gray
     }
 
-  } else {
-    Write-Host "Skipping New-AzureRmResourceGroup: '$RG-$AzureEnvironment-rg' already exists."
+  } # Resource Group already exists
+  else {
+    Write-Color -Text "-> Create Resource Group: $RG-$AzureEnvironment-rg"," already exists","." -Color Gray, Yellow, Gray      
   }
 
 }
@@ -171,43 +233,106 @@ ForEach($RG in $RGs) {
 # Deploy Azure Virtual Network
 ##################################################################################################################
 
-New-AzResourceGroupDeployment -ErrorVariable deployError -ErrorAction SilentlyContinue -Name "deploy-vnet" -ResourceGroupName "$azureNetworkingRG" -TemplateFile "$ScriptPath/2-virtual-network/azuredeploy.json" -TemplateParameterFile "$ScriptPath/2-virtual-network/azuredeploy.parameters.json" -externalIp $ExternalIp
+Write-Color -Text " " -Color Gray
+Write-Color -Text "Deploy Azure Virtual Network" -Color Gray
+Write-Color -Text "-> Deployment Parameters:" -Color Gray
+Write-Color -Text "--> -vnetName ", "$AzureEnvironment-vnet" -Color Gray, Yellow
+Write-Color -Text "--> -vnetAddressPrefix ", "10.0.0.0/8" -Color Gray, Yellow
+Write-Color -Text "--> -subnet1Name ", "paz" -Color Gray, Yellow
+Write-Color -Text "--> -subnet1AddressPrefix ", "10.0.1.0/24" -Color Gray, Yellow
+Write-Color -Text "--> -subnet2Name ", "front" -Color Gray, Yellow
+Write-Color -Text "--> -subnet2AddressPrefix ", "10.0.2.0/24" -Color Gray, Yellow
+Write-Color -Text "--> -subnet3Name ", "back" -Color Gray, Yellow
+Write-Color -Text "--> -subnet3AddressPrefix ", "10.0.3.0/24" -Color Gray, Yellow
+Write-Color -Text "--> -subnet4Name ", "desktops" -Color Gray, Yellow
+Write-Color -Text "--> -subnet4AddressPrefix ", "10.0.4.0/24" -Color Gray, Yellow
+Write-Color -Text "--> -externalIp ", "$ExternalIp" -Color Gray, Yellow
+Write-Color -Text "-> Deployment Result:" -Color Gray
 
-if ($deployError) {
-  Write-Warning "New-AzResourceGroupDeployment: 'deploy-vnet' failed."
-  Write-Warning "$deployError"
+New-AzResourceGroupDeployment -OutVariable deployVnetOutput -ErrorVariable deployVnetError -ErrorAction SilentlyContinue `
+-Name "deploy-vnet" -ResourceGroupName "$azureNetworkingRG" -TemplateFile "$ScriptPath/2-virtual-network/azuredeploy.json" `
+-vnetName "$AzureEnvironment-vnet" -vnetAddressPrefix "10.0.0.0/8" -subnet1Name "paz" -subnet1AddressPrefix "10.0.1.0/24" -subnet2Name "front" -subnet2AddressPrefix "10.0.2.0/24" -subnet3Name "back" -subnet3AddressPrefix "10.0.3.0/24" -subnet4Name "desktops" -subnet4AddressPrefix "10.0.4.0/24" -externalIp $ExternalIp > $null
+
+if ($deployVnetError) {
+  Write-Color -Text "--> fail" -ForegroundColor Red -NoNewline
+  Write-Color -Text "$deployVnetError" -ForegroundColor Red -NoNewline
   Exit 1
 } else {
-    Write-Host "New-AzResourceGroupDeployment: 'deploy-vnet' successful."  
+  Write-Color -Text "--> pass" -ForegroundColor Green -NoNewline
 }
 
 ##################################################################################################################
 # Deploy Apache Guacamole
 ##################################################################################################################
 
-New-AzResourceGroupDeployment -ErrorVariable deployError -ErrorAction SilentlyContinue -AsJob -Force -Name "deploy-guac" -ResourceGroupName "$azureGuacamoleRG" -TemplateFile "$ScriptPath/4-apache-guacamole/azuredeploy.json" -TemplateParameterFile "$ScriptPath/4-apache-guacamole/azuredeploy.parameters.json" -pwdOrPsk $securepwdOrPsk -mysqlRootPwd $securemysqlRootPwd -dbUserPwd $securedbUserPwd -Size "Standard_D2s_v3"
+Write-Color -Text " " -Color Gray
+Write-Color -Text " " -Color Gray
+Write-Color -Text "Deploy Apache Guacamole" -Color Gray
+Write-Color -Text "-> Deployment Parameters:" -Color Gray
+Write-Color -Text "--> -dnsLabelPrefix ", "guac" -Color Gray, Yellow
+Write-Color -Text "--> -size ", "Standard_D2s_v3" -Color Gray, Yellow
+Write-Color -Text "--> -adminUsername ", "vmadmin" -Color Gray, Yellow
+Write-Color -Text "--> -authenticationType ", "password" -Color Gray, Yellow
+Write-Color -Text "--> -pwdOrPsk ", "$pwdOrPsk" -Color Gray, Yellow
+Write-Color -Text "--> -vnetName ", "$AzureEnvironment-vnet" -Color Gray, Yellow
+Write-Color -Text "--> -vnetSubnetName ", "paz-subnet" -Color Gray, Yellow
+Write-Color -Text "--> -vnetResourceGroup ", "$AzureNetworkingRG" -Color Gray, Yellow
+Write-Color -Text "--> -ipAddress ", "public" -Color Gray, Yellow
+Write-Color -Text "--> -mysqlRootPwd ", "$mysqlRootPwd" -Color Gray, Yellow
+Write-Color -Text "--> -dbName ", "guacamole_db" -Color Gray, Yellow
+Write-Color -Text "--> -dbUser ", "guacamole_user" -Color Gray, Yellow
+Write-Color -Text "--> -dbUserPwd ", "$dbUserPwd" -Color Gray, Yellow
+Write-Color -Text "-> Deployment Result:" -Color Gray
 
-if ($deployError) {
-  Write-Warning "New-AzResourceGroupDeployment: 'deploy-guac' failed."
-  Write-Warning "$deployError"
+New-AzResourceGroupDeployment -OutVariable deployGuacOutput -ErrorVariable deployGuacError -ErrorAction SilentlyContinue `
+-Name "deploy-guac" -ResourceGroupName "$azureGuacamoleRG" -TemplateFile "$ScriptPath/4-apache-guacamole/azuredeploy.json" `
+-dnsLabelPrefix "guac" -size "Standard_D2s_v3" -adminUsername "vmadmin" -authenticationType "password" -pwdOrPsk $securepwdOrPsk -vnetName "$AzureEnvironment-vnet" -vnetSubnetName "paz-subnet" -vnetResourceGroup "$AzureNetworkingRG" -ipAddress "public" -mysqlRootPwd $securemysqlRootPwd -dbName "guacamole_db" -dbUser "guacamole_user" -dbUserPwd $securedbUserPwd > $null
+
+if ($deployGuacError) {
+  Write-Color -Text "--> fail" -ForegroundColor Red -NoNewline
+  Write-Color -Text "$deployGuacError" -ForegroundColor Red -NoNewline
   Exit 1
 } else {
-    Write-Host "New-AzResourceGroupDeployment: 'deploy-guac' successful."  
-}
+  Write-Color -Text "--> pass" -ForegroundColor Green -NoNewline
+} 
 
 ##################################################################################################################
 # Deploy Cloud Desktop
 ##################################################################################################################
 
-New-AzResourceGroupDeployment -ErrorVariable deployError -ErrorAction SilentlyContinue -AsJob -Force -Name "deploy-desktop" -ResourceGroupName "$AzureDesktopsRG" -TemplateFile "$ScriptPath/3-virtual-machines/azuredeploy.json" -TemplateParameterFile "$ScriptPath/3-virtual-machines/azuredeploy.parameters.json" -pwdOrPsk $securepwdOrPsk -dnsLabelPrefix "desktop" -Size "Standard_D2s_v3" -osPublisher "MicrosoftWindowsServer" -osOffer "WindowsServer" -osSKU "2019-Datacenter"
+Write-Color -Text " " -Color Gray
+Write-Color -Text " " -Color Gray
+Write-Color -Text "Deploy Cloud Desktop" -Color Gray
+Write-Color -Text "-> Deployment Parameters:" -Color Gray
+Write-Color -Text "--> -dnsLabelPrefix ", "desktop" -Color Gray, Yellow
+Write-Color -Text "--> -size ", "Standard_D2s_v3" -Color Gray, Yellow
+Write-Color -Text "--> -osPublisher ", "MicrosoftWindowsServer" -Color Gray, Yellow
+Write-Color -Text "--> -osOffer ", "WindowsServer" -Color Gray, Yellow
+Write-Color -Text "--> -osSKU ", "2019-Datacenter" -Color Gray, Yellow
+Write-Color -Text "--> -osVersion ", "latest" -Color Gray, Yellow
+Write-Color -Text "--> -instances ", "1" -Color Gray, Yellow
+Write-Color -Text "--> -extensionUri ", "" -Color Gray, Yellow
+Write-Color -Text "--> -extensionCommand ", "" -Color Gray, Yellow
+Write-Color -Text "--> -adminUsername ", "vmadmin" -Color Gray, Yellow
+Write-Color -Text "--> -authenticationType ", "password" -Color Gray, Yellow
+Write-Color -Text "--> -pwdOrPsk ", "$pwdOrPsk" -Color Gray, Yellow
+Write-Color -Text "--> -vnetName ", "$AzureEnvironment-vnet" -Color Gray, Yellow
+Write-Color -Text "--> -vnetSubnetName ", "desktops-subnet" -Color Gray, Yellow
+Write-Color -Text "--> -vnetResourceGroup ", "$AzureNetworkingRG" -Color Gray, Yellow
+Write-Color -Text "--> -ipAddress ", "private" -Color Gray, Yellow
+Write-Color -Text "-> Deployment Result:" -Color Gray
 
-if ($deployError) {
-  Write-Warning "New-AzResourceGroupDeployment: 'deploy-desktop' failed."
-  Write-Warning "$deployError"
+New-AzResourceGroupDeployment -OutVariable deployDesktopOutput -ErrorVariable deployDesktopError -ErrorAction SilentlyContinue `
+-Name "deploy-desktop" -ResourceGroupName "$AzureDesktopsRG" -TemplateFile "$ScriptPath/3-virtual-machines/azuredeploy.json" `
+-dnsLabelPrefix "desktop" -size "Standard_D2s_v3" -osPublisher "MicrosoftWindowsServer" -osOffer "WindowsServer" -osSKU "2019-Datacenter" -osVersion "latest" -instances 1 -extensionUri "" -extensionCommand "" -adminUsername "vmadmin" -authenticationType "password" -pwdOrPsk $securepwdOrPsk -vnetName "$AzureEnvironment-vnet" -vnetSubnetName "desktops-subnet" -vnetResourceGroup "$AzureNetworkingRG" -ipAddress "private"  > $null
+
+if ($deployDesktopError) {
+  Write-Color -Text "--> fail" -ForegroundColor Red -NoNewline
+  Write-Color -Text "$deployDesktopError" -ForegroundColor Red -NoNewline
   Exit 1
 } else {
-    Write-Host "New-AzResourceGroupDeployment: 'deploy-desktop' successful."  
-}
+  Write-Color -Text "--> pass" -ForegroundColor Green -NoNewline
+} 
 
 ##################################################################################################################
 # Deploy Scaffold
