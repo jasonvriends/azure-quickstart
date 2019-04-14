@@ -47,17 +47,71 @@ Param
 )
 
 ##################################################################################################################
-# Import PSWriteColor Module
+# WriteColor Function
 ##################################################################################################################
 
-if (Get-Module -ListAvailable -Name PSWriteColor) {
-  Import-Module PSWriteColor
-} else {
-  Write-Host -Text "PowerShell 'PSWriteColor' module does not exist... installing"
-  Install-Module -Name PSWriteColor -Force > $null
+function Write-Color {
+  [alias('Write-Colour')]
+  [CmdletBinding()]
+  param (
+      [alias ('T')] [String[]]$Text,
+      [alias ('C', 'ForegroundColor', 'FGC')] [ConsoleColor[]]$Color = [ConsoleColor]::White,
+      [alias ('B', 'BGC')] [ConsoleColor[]]$BackGroundColor = $null,
+      [alias ('Indent')][int] $StartTab = 0,
+      [int] $LinesBefore = 0,
+      [int] $LinesAfter = 0,
+      [int] $StartSpaces = 0,
+      [alias ('L')] [string] $LogFile = '',
+      [Alias('DateFormat', 'TimeFormat')][string] $DateTimeFormat = 'yyyy-MM-dd HH:mm:ss',
+      [alias ('LogTimeStamp')][bool] $LogTime = $true,
+      [ValidateSet('unknown', 'string', 'unicode', 'bigendianunicode', 'utf8', 'utf7', 'utf32', 'ascii', 'default', 'oem')][string]$Encoding = 'Unicode',
+      [switch] $ShowTime,
+      [switch] $NoNewLine
+  )
+  $DefaultColor = $Color[0]
+  if ($null -ne $BackGroundColor -and $BackGroundColor.Count -ne $Color.Count) { Write-Error "Colors, BackGroundColors parameters count doesn't match. Terminated." ; return }
+  #if ($Text.Count -eq 0) { return }
+  if ($LinesBefore -ne 0) {  for ($i = 0; $i -lt $LinesBefore; $i++) { Write-Host -Object "`n" -NoNewline } } # Add empty line before
+  if ($StartTab -ne 0) {  for ($i = 0; $i -lt $StartTab; $i++) { Write-Host -Object "`t" -NoNewLine } }  # Add TABS before text
+  if ($StartSpaces -ne 0) {  for ($i = 0; $i -lt $StartSpaces; $i++) { Write-Host -Object ' ' -NoNewLine } }  # Add SPACES before text
+  if ($ShowTime) { Write-Host -Object "[$([datetime]::Now.ToString($DateTimeFormat))]" -NoNewline} # Add Time before output
+  if ($Text.Count -ne 0) {
+      if ($Color.Count -ge $Text.Count) {
+          # the real deal coloring
+          if ($null -eq $BackGroundColor) {
+              for ($i = 0; $i -lt $Text.Length; $i++) { Write-Host -Object $Text[$i] -ForegroundColor $Color[$i] -NoNewLine }
+          } else {
+              for ($i = 0; $i -lt $Text.Length; $i++) { Write-Host -Object $Text[$i] -ForegroundColor $Color[$i] -BackgroundColor $BackGroundColor[$i] -NoNewLine }
+          }
+      } else {
+          if ($null -eq $BackGroundColor) {
+              for ($i = 0; $i -lt $Color.Length ; $i++) { Write-Host -Object $Text[$i] -ForegroundColor $Color[$i] -NoNewLine }
+              for ($i = $Color.Length; $i -lt $Text.Length; $i++) { Write-Host -Object $Text[$i] -ForegroundColor $DefaultColor -NoNewLine }
+          } else {
+              for ($i = 0; $i -lt $Color.Length ; $i++) { Write-Host -Object $Text[$i] -ForegroundColor $Color[$i] -BackgroundColor $BackGroundColor[$i] -NoNewLine }
+              for ($i = $Color.Length; $i -lt $Text.Length; $i++) { Write-Host -Object $Text[$i] -ForegroundColor $DefaultColor -BackgroundColor $BackGroundColor[0] -NoNewLine }
+          }
+      }
+  }
+  if ($NoNewLine -eq $true) { Write-Host -NoNewline } else { Write-Host } # Support for no new line
+  if ($LinesAfter -ne 0) {  for ($i = 0; $i -lt $LinesAfter; $i++) { Write-Host -Object "`n" -NoNewline } }  # Add empty line after
+  if ($Text.Count -ne 0 -and $LogFile -ne "") {
+      # Save to file
+      $TextToFile = ""
+      for ($i = 0; $i -lt $Text.Length; $i++) {
+          $TextToFile += $Text[$i]
+      }
+      try {
+          if ($LogTime) {
+              Write-Output -InputObject "[$([datetime]::Now.ToString($DateTimeFormat))]$TextToFile" | Out-File -FilePath $LogFile -Encoding $Encoding -Append
+          } else {
+              Write-Output -InputObject "$TextToFile" | Out-File -FilePath $LogFile -Encoding $Encoding -Append
+          }
+      } catch {
+          $_.Exception
+      }
+  }
 }
-
-#Requires -Modules PSWriteColor
 
 ##################################################################################################################
 # Verify Parameters not NULL, EMPTY, or have WHITESPACE
