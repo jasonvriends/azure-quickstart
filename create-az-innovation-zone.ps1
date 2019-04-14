@@ -50,29 +50,11 @@ Param
 # Import Modules
 ##################################################################################################################
 
-# Install from Powershell Gallery https://www.powershellgallery.com/packages/PSWriteColor
-# Install-Module -Name PSWriteColor
-
 if (Get-Module -ListAvailable -Name PSWriteColor) {
   Import-Module PSWriteColor
-  Write-Color -Text "Import PSWriteColor module"
-} 
-
-else {
-  Write-Color -Text "PowerShell 'PSWriteColor' module does not exist."
-  Install-Module -OutVariable getPsModuleOutput -ErrorVariable getPsModuleError -ErrorAction SilentlyContinue -Name PSWriteColor -Force > $null
-
-  if ($getPsModuleError)
-  {
-      Write-Color -Text "-> Installing PowerShell 'PSWriteColor' module fail."
-      Write-Color -Text "--> $getPsModuleError"
-      Exit 1
-  } else {
-      Write-Color -Text "-> Installing PowerShell 'PSWriteColor' module"," pass", "." -Color Gray, Green, Gray
-  }
-
-  Write-Color -Text "Import PSWriteColor module"
-  Import-Module PSWriteColor
+} else {
+  Write-Host -Text "PowerShell 'PSWriteColor' module does not exist... installing"
+  Install-Module -Name PSWriteColor -Force > $null
 }
 
 #Requires -Modules PSWriteColor
