@@ -23,10 +23,6 @@ To deploy this quickstart template, you need the following:
 * <a href="https://github.com/klarstil/lifx-http-api">LIFX HTTP API Node.JS wrapper</a>
 * <a href="https://docs.microsoft.com/en-us/azure/azure-functions/functions-run-local">Azure Functions Core Tools</a>
 
-## Example Use Cases
-* Change light color based on DevOps pipline build status.
-* Change light color based on SonarQube code quality.
-
 ## Setup
 
 ### Cloud Connecting your LIFX
@@ -114,3 +110,7 @@ az group deployment create --name "deploy-guacamole" --resource-group "$Deployme
 
 
 ```
+
+## Example Use Cases
+* Change light color based on DevOps pipline build status.
+* Change light color based on SonarQube code quality.
