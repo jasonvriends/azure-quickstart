@@ -37,7 +37,8 @@ Currently, its not possible to register IoT devices via Azure Resource Manager t
 * Select **Add**
   * Input **teXXmo1** for **Device ID** (or any friendly name that you prefer).
   * Select **Symmetric key** for **Authentication type**.
-  * Select **Save** and Primary and Secondary keys will be automatically generated. **Remember to note these keys as they will not be visable once you leave this screen**.
+  * Select **Save** and Primary and Secondary keys will be automatically generated.
+* Select **teXXmo** and note your Primary and Secondary key. This will be required for [Step 3: Configure teXXmo Azure IoT Button](#step-3-configure-teXXmo-azure-iot-button).
 
 ## Azure PowerShell
 
