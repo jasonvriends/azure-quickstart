@@ -64,12 +64,14 @@ Currently, its not possible to register IoT devices via Azure Resource Manager t
 3. Browse to the device web interface and REST API by accessing http://192.168.4.1 with a web browser.
 4. Select **IoT Hub Configuration**.
    * Input the **Azure IoT Hub URL**.
-     * This is the **hostname** that you either noted from the Azure Portal deployment or that was displayed as part of the Azure PowerShell or Azure CLI deployment. 
+     * This is the **hostname** that you either noted from the **Azure Portal** deployment or that was displayed as part of the **Azure PowerShell** or **Azure CLI** deployment. 
    * Input the **IoT device name**.
+     * This is the **device id** that you either noted from the **Azure Portal** deployment or that was displayed as part of the **Azure PowerShell** or **Azure CLI** deployment.    
    * Input the **IoT device secret**.
+     * This is the **primary key** that you either noted from the **Azure Portal** deployment or that was displayed as part of the **Azure PowerShell** or **Azure CLI** deployment.    
 5. Select **WiFi**
    * Configure the **SSID** and **Password** that the device will connect to.
 6. Select **User JSON** 
-   * Configure your desired message that should be sent to the Azure IoT Hub when pressed. For example: {"message":"on"}.
+   * Configure your desired message that should be sent to the Azure IoT Hub when pressed. For example: {"button1":"pressed"}.
 7. Select **Shutdown**
    * This will save the configuration to the device.
