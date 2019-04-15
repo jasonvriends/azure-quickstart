@@ -40,3 +40,5 @@ teXXmo button project code - https://github.com/teXXmo/TheButtonProject
 ## temp
 
 https://azure.microsoft.com/en-us/pricing/details/iot-hub/
+
+https://github.com/Microsoft/vscode-iot-workbench/blob/master/docs/iot-button/teXXmo_IoT_button_get_started.md#step-4-configure-the-setting-on-iot-button
