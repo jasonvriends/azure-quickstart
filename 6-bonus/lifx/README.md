@@ -111,7 +111,7 @@ az group deployment create --name "deploy-guacamole" --resource-group "$Deployme
 
 ```
 
-## Example Use Cases
+## Example Use Case(s)
 
 ### Change light color based on DevOps pipline build status.
 1. Browse to https://devops.azure.com
@@ -143,8 +143,4 @@ az group deployment create --name "deploy-guacamole" --resource-group "$Deployme
 9. Create a Dockerfile within the repo that contains
     * FROM alpine:latest
 
-The build should pass and turn the light green. 
-
-Try including a typo within the Dockerfile and the light should turn red.
-
-* Change light color based on SonarQube code quality.
+* Any changes to the Docker file that causes the build to complete will turn the light green, or that causes the build to fail will turn the light red.
