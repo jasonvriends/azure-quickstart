@@ -1,8 +1,24 @@
 # 6-bonus/teXXmo
 
+# Table of Contents
+
+-   [Introduction](#introduction)
+-   [Step 1: Prerequisites](#step-1-prerequisites)
+-   [Step 2: Configure teXXmo Azure IoT Button](#step-2-configure-teXXmo-azure-iot-button)
+-   [Step 3: Provision Azure Services](#step-3-provision-azure-services)
+
+# Introduction
+
 The teXXmo IoT Button enables direct customer or workforce feedback into Azure. By a click of a button, you can send predefined messages to your cloud. Send information, such as presence of people, material or purchasing demand and react on this from Azure. The IoT button offers instant feedback and integrates directly in all your Azure analysis and response tools.
 
-## Prerequisites
+At a conceptual level, enabling the teXXmo button involves the following steps:
+
+1. Configuring the button
+2. Provisioning and registering the device in an Azure IoT Hub.
+3. Writing an Azure Function to receive messages from the button when clicked
+4. Binding the button to the Azure Function
+
+# Step 1: Prerequisites
 
 To deploy this quickstart template, you need the following:
 * **Azure subscription**. 
@@ -10,16 +26,27 @@ To deploy this quickstart template, you need the following:
 * **teXXmo Azure IoT button**
   * If you don't have one yet, you can purchase one via <a href="https://www.texxmo-shop.de/epages/82740787.sf/en_US/?ObjectPath=/Shops/82740787/Products/TX-IOT-20W-GR">teXXmo</a>.
 
-## Concepts
+# Step 2: Configure teXXmo Azure IoT button
 
-At a conceptual level, enabling the teXXmo button involves the following steps:
+1. Hold power button for 5 sec. LED changes from Green Flash to Yellow, then Red flash. When LED flashes in RED, the device is in AP Mode.
 
-1. Configuring the button
-2. Provisioning and registering the device in an Azure IoT Hub. When you register a device, you will get a connection string for it.
-3. Writing an Azure Function to receive messages from the button when clicked
-4. Binding the button to the Azure Function
+1. From any desktop machine, connect to the device via WiFi using the SSID : ESP_<Last 3 digits of MAC Address>.
 
-## Configuring the teXXmo button
+1. In Visual Studio Code, press **F1** or **Ctrl + Shift + P** in Visual Studio Code and select **Azure IoT Device Workbench: Configure Device Settings...**
+![ConfigDevice](media/iot-button-get-started/iot_button_config_device.JPG)
+    For teXXmo IoT button, the following commands are provided:
+
+    | Command | Description |
+    | --- | --- |
+    | `Config WiFi of IoT button`  | Set WiFi SSID and password. |
+    | `Config connection of IoT Hub Device` | Set the device connection string into IoT button. |
+    | `Config time server of IoT button` | Config time server of IoT button. |
+    | `Config JSON data to append to message`  | Append JSON data from `Device\userdata.json` into the message.  |
+    | `Shutdown IoT button` | Shutdown IoT button. |
+
+    Please click `Config WiFi of IoT button` and `Config connection of IoT Hub Device` and follow the guide to set the WiFi and device connection string of teXXmo IoT button and then click `Shutdown IoT button`
+
+## Provision Azure Services
 
 You will use the Azure IoT Starter Kit companion App or CLI to configure your device as an Azure IoT device. The App or CLI will connect your device to a wireless network, provision Azure resources for you, and bind the button to an Azure Function.
 
