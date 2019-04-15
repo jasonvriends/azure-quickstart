@@ -5,9 +5,9 @@ The teXXmo IoT Button enables direct customer or workforce feedback into Azure. 
 At a conceptual level, enabling the teXXmo button involves the following steps:
 
 1. Provisioning and registering the device in an Azure IoT Hub.
-2. Writing an Azure Function to receive messages from the button when clicked
+2. Writing an Azure Function to receive messages from the button when clicked.
 3. Configuring the button to communicate to the Azure IoT Hub.
-4. Binding the button to the Azure Function
+4. Binding the button to the Azure Function.
 
 # Table of Contents
 
@@ -30,10 +30,10 @@ To deploy this quickstart template, you need the following:
 
 ## Azure Portal
 
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fjasonvriends%2Fazure-quickstart%2Fmaster%2F2-virtual-network%2Fazuredeploy.json" target="_blank">
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fjasonvriends%2Fazure-quickstart%2Fmaster%2F6-bonus/teXXmo/%2Fazuredeploy.json" target="_blank">
     <img src="http://azuredeploy.net/deploybutton.png"/>
 </a>
-<a href="http://armviz.io/#/?load=https%3A%2F%2Fraw.githubusercontent.com%2Fjasonvriends%2Fazure-quickstart%2Fmaster%2F2-virtual-network%2Fazuredeploy.json" target="_blank">
+<a href="http://armviz.io/#/?load=https%3A%2F%2Fraw.githubusercontent.com%2Fjasonvriends%2Fazure-quickstart%2Fmaster%2F6-bonus/teXXmo/%2Fazuredeploy.json" target="_blank">
     <img src="http://armviz.io/visualizebutton.png"/>
 </a><br/>
 
@@ -52,9 +52,10 @@ To deploy this quickstart template, you need the following:
 
 # Step 3: Configure teXXmo Azure IoT button
 
-1. Hold power button for 5 sec. LED changes from Green Flash to Yellow, then Red flash. When LED flashes in RED, the device is in AP Mode.
+1. Hold power button for 5 seconds.
+   * The LED will change from **Green**, flash to **Yellow**, then finally flash **Red**. It's at this point that the device is in Access Point Mode, allowing you to connect to the device and configure it.
 
-1. From any desktop machine, connect to the device via WiFi using the SSID : ESP_<Last 3 digits of MAC Address>.
+2. From a desktop or mobile device, connect to the device via WiFi using the SSID : **ESP_<Last 3 digits of MAC Address>**.
 
 1. In Visual Studio Code, press **F1** or **Ctrl + Shift + P** in Visual Studio Code and select **Azure IoT Device Workbench: Configure Device Settings...**
 ![ConfigDevice](media/iot-button-get-started/iot_button_config_device.JPG)
