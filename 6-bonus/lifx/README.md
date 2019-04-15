@@ -128,7 +128,7 @@ az group deployment create --name "deploy-guacamole" --resource-group "$Deployme
         * Build Status: **Succeeded**
     * Action: **Post via HTTP**
         * Settings
-        * URL: https://lifxdemo.azurewebsites.net/api/lifxHttpTriggerFunc?code=<your_function_code>&selector=all&power=on&effect=breathe&color=green&persist=true&period=3&cycles=10
+        * URL: https://<**function_url**>/api/lifxHttpTriggerFunc?code=**<your_function_code>**&selector=all&power=on&effect=breathe&color=green&persist=true&period=3&cycles=10
 7. Create a new Service Hook for **Build Failed**
     * Service: **Web Hooks**
     * Trigger: **Build Completed**
@@ -137,7 +137,7 @@ az group deployment create --name "deploy-guacamole" --resource-group "$Deployme
         * Build Status: **Failed**
     * Action: **Post via HTTP**
         * Settings
-        * URL: https://lifxdemo.azurewebsites.net/api/lifxHttpTriggerFunc?code=<your_function_code>&selector=all&power=on&effect=breathe&color=red&persist=true&period=3&cycles=10
+        * URL: https://<**function_url**>/api/lifxHttpTriggerFunc?code=**<your_function_code>**&selector=all&power=on&effect=breathe&color=red&persist=true&period=3&cycles=10
 8. Create a Pipeline that executes the command
     * docker build -f Dockerfile -t $(imageName) .
 9. Create a Dockerfile within the repo that contains
