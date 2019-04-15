@@ -36,3 +36,7 @@ For step by step instructions, see https://docs.microsoft.com/en-us/azure/azure-
 teXXmo button product page - https://catalog.azureiotsuite.com/details?title=teXXmo-IoT-Button&source=home-page&kit=teXXmo-IoT-Button-Starter-Kit
 
 teXXmo button project code - https://github.com/teXXmo/TheButtonProject
+
+## temp
+
+https://azure.microsoft.com/en-us/pricing/details/iot-hub/
