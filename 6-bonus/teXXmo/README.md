@@ -10,7 +10,7 @@ The teXXmo IoT Button enables direct customer or workforce feedback into Azure. 
     -   [Azure PowerShell](#azure-powershell)
     -   [Azure CLI](#azure-cli)
 -   [Step 3: Configure teXXmo Azure IoT Button](#step-3-configure-teXXmo-azure-iot-button)
--   [Step 4: Verify communication between teXXmo Azure IoT button and Azure IoT Hub](#step-4)
+-   [Step 4: Verify communication between teXXmo Azure IoT button and Azure IoT Hub](#step-4-verify-communication-between-texxmo-azure-iot-button-and-azure-iot-hub)
 
 # Step 1: Prerequisites
 
