@@ -30,6 +30,15 @@ To deploy this quickstart template, you need the following:
     <img src="http://armviz.io/visualizebutton.png"/>
 </a><br/>
 
+Currently, its not possible to register IoT devices via Azure Resource Manager templates. As such, following the Azure Portal deployment:
+* Browse to the **Resource Group** containing your **Azure IoT Hub**.
+* Select the **Azure IoT Hub**.
+* Under **Explorers**, select **IoT devices**.
+* Select **Add**
+  * Input **teXXmo1** for **Device ID** (or any friendly name that you prefer).
+  * Select **Symmetric key** for **Authentication type**.
+  * Select **Save** and Primary and Secondary keys will be automatically generated. **Remember to note these keys as they will not be visable once you leave this screen**.
+
 ## Azure PowerShell
 
 ```powershell
