@@ -112,5 +112,39 @@ az group deployment create --name "deploy-guacamole" --resource-group "$Deployme
 ```
 
 ## Example Use Cases
-* Change light color based on DevOps pipline build status.
+
+### Change light color based on DevOps pipline build status.
+1. Browse to https://devops.azure.com
+2. Sign in to Azure DevOps
+3. Create a project
+    * Specify a project Name, description, and visibility (public or private).
+4. Select **Project settings**
+5. Select **Service Hooks**
+6. Create a new Service Hook for **Build Succeeded**
+    * Service: **Web Hooks**
+    * Trigger: **Build Completed**
+    * Filters:
+        * Build pipeline: **[Any]**
+        * Build Status: **Succeeded**
+    * Action: **Post via HTTP**
+        * Settings
+        * URL: https://lifxdemo.azurewebsites.net/api/lifxHttpTriggerFunc?code=<your_function_code>&selector=all&power=on&effect=breathe&color=green&persist=true&period=3&cycles=10
+7. Create a new Service Hook for **Build Failed**
+    * Service: **Web Hooks**
+    * Trigger: **Build Completed**
+    * Filters:
+        * Build pipeline: **[Any]**
+        * Build Status: **Failed**
+    * Action: **Post via HTTP**
+        * Settings
+        * URL: https://lifxdemo.azurewebsites.net/api/lifxHttpTriggerFunc?code=<your_function_code>&selector=all&power=on&effect=breathe&color=red&persist=true&period=3&cycles=10
+8. Create a Pipeline that executes the command
+    * docker build -f Dockerfile -t $(imageName) .
+9. Create a Dockerfile within the repo that contains
+    * FROM alpine:latest
+
+The build should pass and turn the light green. 
+
+Try including a typo within the Dockerfile and the light should turn red.
+
 * Change light color based on SonarQube code quality.
