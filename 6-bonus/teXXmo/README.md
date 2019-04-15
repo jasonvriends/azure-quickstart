@@ -52,12 +52,17 @@ To deploy this quickstart template, you need the following:
 
 # Step 3: Configure teXXmo Azure IoT button
 
-1. Hold power button for 5 seconds.
+1. Hold power button for **5 seconds**.
    * The LED will change from **Green**, flash to **Yellow**, then finally flash **Red** which places the device in Access Point Mode, allowing you to connect to the device and configure it.
 2. Connect to the device via WiFi using the SSID : **ESP_<Last 3 digits of MAC Address>**.
 3. Browse to the device web interface and REST API by accessing http://192.168.4.1 with a web browser.
-4. Select IoT Hub Configuration, and input the Azure IoT Hub URL, IoT device name, and IoT device secret (located in the Azure IoT Hub deployed in Step 2).
-5. Select WIFI and configure the SSID and Password that the device will connect to.
-6. Select User JSON and configure your desired message that should be sent to the Azure IoT Hub when pressed. 
-   * For example: {"message":"on"}
-7. Select Shutdown in order to save the configuration
+4. Select **IoT Hub Configuration**.
+   * Input the **Azure IoT Hub URL**.
+   * Input the **IoT device name**.
+   * Input the **IoT device secret**.
+5. Select **WiFi**
+   * Configure the **SSID** and **Password** that the device will connect to.
+6. Select **User JSON** 
+   * Configure your desired message that should be sent to the Azure IoT Hub when pressed. For example: {"message":"on"}.
+7. Select **Shutdown**
+   * This will save the configuration to the device.
