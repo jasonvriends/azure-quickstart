@@ -5,8 +5,12 @@
 
 -   [Introduction](#introduction)
 -   [Step 1: Prerequisites](#step-1-prerequisites)
--   [Step 2: Configure teXXmo Azure IoT Button](#step-2-configure-teXXmo-azure-iot-button)
--   [Step 3: Provision Azure Services](#step-3-provision-azure-services)
+-   [Step 2: Provision Azure Services](#step-2-provision-azure-services)
+-   [Azure Portal](##azure-portal)
+-   [Azure PowerShell](##azure-powershell)
+-   [Azure CLI](##azure-cli)
+-   [Step 3: Configure teXXmo Azure IoT Button](#step-3-configure-teXXmo-azure-iot-button)
+
 
 # Introduction
 
@@ -14,9 +18,9 @@ The teXXmo IoT Button enables direct customer or workforce feedback into Azure. 
 
 At a conceptual level, enabling the teXXmo button involves the following steps:
 
-1. Configuring the button
-2. Provisioning and registering the device in an Azure IoT Hub.
-3. Writing an Azure Function to receive messages from the button when clicked
+1. Provisioning and registering the device in an Azure IoT Hub.
+2. Writing an Azure Function to receive messages from the button when clicked
+3. Configuring the button to communicate to the Azure IoT Hub.
 4. Binding the button to the Azure Function
 
 # Step 1: Prerequisites
@@ -26,6 +30,30 @@ To deploy this quickstart template, you need the following:
   * If you don't have one yet, you can <a href="https://azure.microsoft.com/pricing/member-offers/msdn-benefits-details/">activate your MSDN subscriber benefits</a> or <a href="https://azure.microsoft.com/free">sign up for a free account</a>.
 * **teXXmo Azure IoT button**
   * If you don't have one yet, you can purchase one via <a href="https://www.texxmo-shop.de/epages/82740787.sf/en_US/?ObjectPath=/Shops/82740787/Products/TX-IOT-20W-GR">teXXmo</a>.
+
+# Provision Azure Services
+
+## Azure Portal
+
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fjasonvriends%2Fazure-quickstart%2Fmaster%2F2-virtual-network%2Fazuredeploy.json" target="_blank">
+    <img src="http://azuredeploy.net/deploybutton.png"/>
+</a>
+<a href="http://armviz.io/#/?load=https%3A%2F%2Fraw.githubusercontent.com%2Fjasonvriends%2Fazure-quickstart%2Fmaster%2F2-virtual-network%2Fazuredeploy.json" target="_blank">
+    <img src="http://armviz.io/visualizebutton.png"/>
+</a><br/>
+
+## Azure PowerShell
+
+```powershell
+
+```
+
+## Azure CLI
+
+```shell
+
+
+```
 
 # Step 2: Configure teXXmo Azure IoT button
 
@@ -47,7 +75,7 @@ To deploy this quickstart template, you need the following:
 
     Please click `Config WiFi of IoT button` and `Config connection of IoT Hub Device` and follow the guide to set the WiFi and device connection string of teXXmo IoT button and then click `Shutdown IoT button`
 
-## Provision Azure Services
+# Provision Azure Services
 
 You will use the Azure IoT Starter Kit companion App or CLI to configure your device as an Azure IoT device. The App or CLI will connect your device to a wireless network, provision Azure resources for you, and bind the button to an Azure Function.
 
