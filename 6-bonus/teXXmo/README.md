@@ -2,13 +2,6 @@
 
 The teXXmo IoT Button enables direct customer or workforce feedback into Azure. By a click of a button, you can send predefined messages to your cloud. Send information, such as presence of people, material or purchasing demand and react on this from Azure. The IoT button offers instant feedback and integrates directly in all your Azure analysis and response tools.
 
-At a conceptual level, enabling the teXXmo button involves the following steps:
-
-1. Provisioning and registering the device in an Azure IoT Hub.
-2. Writing an Azure Function to receive messages from the button when clicked.
-3. Configuring the button to communicate to the Azure IoT Hub.
-4. Binding the button to the Azure Function.
-
 # Table of Contents
 
 -   [Step 1: Prerequisites](#step-1-prerequisites)
