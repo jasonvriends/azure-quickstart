@@ -8,4 +8,4 @@ LIFX Wi-Fi LED Smart Lights are energy efficient LED lights that you control wit
 
 ## <a href="https://github.com/jasonvriends/azure-quickstart/tree/master/6-bonus/teXXmo">6-bonus/teXXmo</a>
 
-The teXXmo button is an Azure IoT Starter 
+The teXXmo IoT Button enables direct customer or workforce feedback into Azure. By a click of a button, you can send predefined messages to your cloud. Send information, such as presence of people, material or purchasing demand and react on this from Azure. The IoT button offers instant feedback and integrates directly in all your Azure analysis and response tools.
