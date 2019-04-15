@@ -10,6 +10,7 @@ The teXXmo IoT Button enables direct customer or workforce feedback into Azure. 
     -   [Azure PowerShell](#azure-powershell)
     -   [Azure CLI](#azure-cli)
 -   [Step 3: Configure teXXmo Azure IoT Button](#step-3-configure-teXXmo-azure-iot-button)
+-   [Step 4: Verify communication between teXXmo Azure IoT button and Azure IoT Hub](#step-4)
 
 # Step 1: Prerequisites
 
@@ -76,7 +77,7 @@ Currently, its not possible to register IoT devices via Azure Resource Manager t
 7. Select **Shutdown**
    * This will save the configuration to the device.
    
-# Step 4: Verify the teXXmo Azure IoT button is communicating with the Azure IoT Hub.
+# Step 4: Verify communication between teXXmo Azure IoT button and Azure IoT Hub.
 
 1. Launch <a href="https://shell.azure.com">Azure Cloud Shell</a>.
 2. Install the Azure CLI IoT Extension
