@@ -54,46 +54,10 @@ To deploy this quickstart template, you need the following:
 
 1. Hold power button for 5 seconds.
    * The LED will change from **Green**, flash to **Yellow**, then finally flash **Red** which places the device in Access Point Mode, allowing you to connect to the device and configure it.
-
 2. Connect to the device via WiFi using the SSID : **ESP_<Last 3 digits of MAC Address>**.
-
 3. Browse to the device web interface and REST API by accessing http://192.168.4.1 with a web browser.
-
-
-1. In Visual Studio Code, press **F1** or **Ctrl + Shift + P** in Visual Studio Code and select **Azure IoT Device Workbench: Configure Device Settings...**
-![ConfigDevice](media/iot-button-get-started/iot_button_config_device.JPG)
-    For teXXmo IoT button, the following commands are provided:
-
-    | Command | Description |
-    | --- | --- |
-    | `Config WiFi of IoT button`  | Set WiFi SSID and password. |
-    | `Config connection of IoT Hub Device` | Set the device connection string into IoT button. |
-    | `Config time server of IoT button` | Config time server of IoT button. |
-    | `Config JSON data to append to message`  | Append JSON data from `Device\userdata.json` into the message.  |
-    | `Shutdown IoT button` | Shutdown IoT button. |
-
-    Please click `Config WiFi of IoT button` and `Config connection of IoT Hub Device` and follow the guide to set the WiFi and device connection string of teXXmo IoT button and then click `Shutdown IoT button`
-
-# Provision Azure Services
-
-You will use the Azure IoT Starter Kit companion App or CLI to configure your device as an Azure IoT device. The App or CLI will connect your device to a wireless network, provision Azure resources for you, and bind the button to an Azure Function.
-
-For step-by-step instructions for the Azure IoT Starter Kit companion app, see https://github.com/Azure-Samples/azure-iot-starterkit-companionapp
-
-For step-by-step instruction for the Azure IoT Starter Kit companion CLI, see https://github.com/Azure-Samples/azure-iot-starterkit-cli
-
-## Writing an Azure Function
-
-For step by step instructions, see https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-first-azure-function
-
-## Additional Resources
-
-teXXmo button product page - https://catalog.azureiotsuite.com/details?title=teXXmo-IoT-Button&source=home-page&kit=teXXmo-IoT-Button-Starter-Kit
-
-teXXmo button project code - https://github.com/teXXmo/TheButtonProject
-
-## temp
-
-https://azure.microsoft.com/en-us/pricing/details/iot-hub/
-
-https://github.com/Microsoft/vscode-iot-workbench/blob/master/docs/iot-button/teXXmo_IoT_button_get_started.md#step-4-configure-the-setting-on-iot-button
+4. Select IoT Hub Configuration, and input the Azure IoT Hub URL, IoT device name, and IoT device secret (located in the Azure IoT Hub deployed in Step 2).
+5. Select WIFI and configure the SSID and Password that the device will connect to.
+6. Select User JSON and configure your desired message that should be sent to the Azure IoT Hub when pressed. 
+   * For example: {"message":"on"}
+7. Select Shutdown in order to save the configuration
