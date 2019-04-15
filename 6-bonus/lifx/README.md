@@ -143,4 +143,4 @@ az group deployment create --name "deploy-guacamole" --resource-group "$Deployme
 9. Create a Dockerfile within the repo that contains
     * FROM alpine:latest
 
-* Any changes to the Docker file that causes the build to complete will turn the light green, or that causes the build to fail will turn the light red.
+* Any changes to the Docker file that causes the build to **complete** will turn the light **green**, or that causes the build to **fail** will turn the light **red**.
