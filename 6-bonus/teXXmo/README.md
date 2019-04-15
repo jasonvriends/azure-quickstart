@@ -53,9 +53,12 @@ To deploy this quickstart template, you need the following:
 # Step 3: Configure teXXmo Azure IoT button
 
 1. Hold power button for 5 seconds.
-   * The LED will change from **Green**, flash to **Yellow**, then finally flash **Red**. It's at this point that the device is in Access Point Mode, allowing you to connect to the device and configure it.
+   * The LED will change from **Green**, flash to **Yellow**, then finally flash **Red** which places the device in Access Point Mode, allowing you to connect to the device and configure it.
 
-2. From a desktop or mobile device, connect to the device via WiFi using the SSID : **ESP_<Last 3 digits of MAC Address>**.
+2. Connect to the device via WiFi using the SSID : **ESP_<Last 3 digits of MAC Address>**.
+
+3. Browse to the device web interface and REST API by accessing http://192.168.4.1 with a web browser.
+
 
 1. In Visual Studio Code, press **F1** or **Ctrl + Shift + P** in Visual Studio Code and select **Azure IoT Device Workbench: Configure Device Settings...**
 ![ConfigDevice](media/iot-button-get-started/iot_button_config_device.JPG)
