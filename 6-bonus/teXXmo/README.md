@@ -75,3 +75,12 @@ Currently, its not possible to register IoT devices via Azure Resource Manager t
    * Configure your desired message that should be sent to the Azure IoT Hub when pressed. For example: {"button1":"pressed"}.
 7. Select **Shutdown**
    * This will save the configuration to the device.
+   
+# Step 4: Verify the teXXmo Azure IoT button is communicating with the Azure IoT Hub.
+
+1. Launch <a href="https://shell.azure.com">Azure Cloud Shell</a>.
+2. Install the Azure CLI IoT Extension
+   * **az extension add --name azure-cli-iot-ext**
+3. Execute the **az iot hub monitor-events --hub-name** <hub_name>
+4. Press the teXXmo Azure IoT button and confirm the event occured.
+
