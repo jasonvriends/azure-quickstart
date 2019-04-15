@@ -26,7 +26,7 @@ To deploy this quickstart template, you need the following:
 * **teXXmo Azure IoT button**
   * If you don't have one yet, you can purchase one via <a href="https://www.texxmo-shop.de/epages/82740787.sf/en_US/?ObjectPath=/Shops/82740787/Products/TX-IOT-20W-GR">teXXmo</a>.
 
-# Provision Azure Services
+# Step 2: Provision Azure Services
 
 ## Azure Portal
 
@@ -50,7 +50,7 @@ To deploy this quickstart template, you need the following:
 
 ```
 
-# Step 2: Configure teXXmo Azure IoT button
+# Step 3: Configure teXXmo Azure IoT button
 
 1. Hold power button for 5 sec. LED changes from Green Flash to Yellow, then Red flash. When LED flashes in RED, the device is in AP Mode.
 
