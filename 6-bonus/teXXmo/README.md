@@ -6,9 +6,9 @@
 -   [Introduction](#introduction)
 -   [Step 1: Prerequisites](#step-1-prerequisites)
 -   [Step 2: Provision Azure Services](#step-2-provision-azure-services)
--   [Azure Portal](##azure-portal)
--   [Azure PowerShell](##azure-powershell)
--   [Azure CLI](##azure-cli)
+ -   [Azure Portal](#azure-portal)
+ -   [Azure PowerShell](#azure-powershell)
+ -   [Azure CLI](#azure-cli)
 -   [Step 3: Configure teXXmo Azure IoT Button](#step-3-configure-teXXmo-azure-iot-button)
 
 
