@@ -51,7 +51,7 @@
     "functionAppName": "[concat(parameters('appName'),'-app')]",
     "hostingPlanName": "[concat(parameters('appName'),'-asp')]",
     "applicationInsightsName": "[concat(parameters('appName'),'-insights')]",
-    "storageAccountName": "[concat(uniquestring(resourceGroup().id), 'azfunctions')]",
+    "storageAccountName": "[concat(parameters('appName'),uniquestring(resourceGroup().id))]",
     "storageAccountid": "[concat(resourceGroup().id,'/providers/','Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]",
     "functionWorkerRuntime": "[parameters('runtime')]"
   },
