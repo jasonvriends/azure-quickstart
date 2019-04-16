@@ -25,7 +25,7 @@ References    : Lifx HTTP API                 https://api.developer.lifx.com/doc
 'use strict';
 
 // Packages
-//const axios = require('axios');
+const axios = require('axios');
 const lifx = require('lifx-http-api');
 
 // Variables
