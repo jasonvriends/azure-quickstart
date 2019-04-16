@@ -1,7 +1,7 @@
 /*
 
 Function      : lifxFunc
-Type          : Azure Function Event Grid Trigger
+Type          : Azure Function HTTP Trigger
 Language      : JavaScript/Node.js
 
 Purpose       : Manage LIFX Smart Wifi Lights
