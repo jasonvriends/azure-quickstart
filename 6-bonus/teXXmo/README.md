@@ -45,7 +45,7 @@ Currently, its not possible to register IoT devices via Azure Resource Manager t
   * Note the **Primary** and **Secondary** key.
   * Note the **Hostname** under **Connection string (primary key)**.
   * These will be required for [Step 3: Configure teXXmo Azure IoT Button](#step-3-configure-teXXmo-azure-iot-button.
-- - -
+
 ### 2. Deploy Azure Function IoT Hub Trigger
 
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fjasonvriends%2Fazure-quickstart%2Fmaster%2F6-bonus/teXXmo/%2Fazuredeploy-function.json" target="_blank">
