@@ -3,7 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "appName": {
-      "value": "lifxdemo"
+      "value": "lifx"
     },
     "lifxPersonalAccessToken": {
       "value": ""
@@ -15,7 +15,7 @@
       "value": "master"
     },
     "folderPath": {
-      "value": "6-bonus/lifx/lifxdemoProj"
+      "value": "6-bonus/lifx/lifxProj"
     },
     "storageAccountType": {
       "value": "Standard_LRS"
