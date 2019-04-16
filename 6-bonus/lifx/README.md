@@ -68,7 +68,7 @@ $repoURL="https://github.com/jasonvriends/azure-quickstart.git" # The URL for th
 $branch="master"                                                # The branch of the GitHub repository to use.
 $storageAccountType="Standard_LRS"                              # Storage Account Type
 $runtime="node"                                                 # The language worker runtime to load in the function app.
-$folderPath="6-bonus/lifx/functionProj"                         # The folder path of the source control. Path must be relative.
+$folderPath="6-bonus/lifx/lifxProj"                             # The folder path of the source control. Path must be relative.
 
 # Resource Group Creation
 $DeploymentResourceGroup="$ResourceGroupName-$AzureEnvironment-rg"
@@ -97,7 +97,7 @@ repoURL="https://github.com/jasonvriends/azure-quickstart.git" # The URL for the
 branch="master"                                                # The branch of the GitHub repository to use.
 storageAccountType="Standard_LRS"                              # Storage Account Type
 runtime="node"                                                 # The language worker runtime to load in the function app.
-folderPath="6-bonus/lifx/functionProj"                         # The folder path of the source control. Path must be relative.
+folderPath="6-bonus/lifx/lifxProj"                             # The folder path of the source control. Path must be relative.
 
 
 # Resource Group Creation

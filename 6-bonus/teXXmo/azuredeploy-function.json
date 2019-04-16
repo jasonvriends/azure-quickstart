@@ -31,7 +31,7 @@
     },            
     "folderPath": {
       "type": "string",
-      "defaultValue": "6-bonus/teXXmo/functionProj",      
+      "defaultValue": "6-bonus/teXXmo/teXXmoProj",      
       "metadata": {
         "description": "The folder path of the source control. Path must be relative."
       }

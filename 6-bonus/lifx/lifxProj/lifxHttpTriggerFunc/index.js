@@ -1,6 +1,6 @@
 /*
 
-Function      : lifxFunc
+Function      : lifxHttpTriggerFunc
 Type          : Azure Function HTTP Trigger
 Language      : JavaScript/Node.js
 
@@ -33,7 +33,7 @@ const client = new lifx({bearerToken: process.env.lifxPersonalAccessToken});
 
 module.exports = async function (context, req) {
 
-    context.log('lifx-httptrigger function received a request.');
+    context.log('lifxHttpTriggerFunc function received a request.');
 
     function lifxSetState(reqSelector, { optPower, optColor, optBrightness, optDuration } = { }) {
 
@@ -227,7 +227,7 @@ module.exports = async function (context, req) {
         // Output syntax as JSON to body
         context.res = {
             status: 400,
-            body: "lifx-httptrigger: please provide the required parameters."
+            body: "lifxHttpTriggerFunc: please provide the required parameters."
         };
     
     }
