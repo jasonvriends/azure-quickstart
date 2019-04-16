@@ -1,6 +1,6 @@
 /*
 
-Function      : lifx-httptrigger
+Function      : lifxFunc
 Type          : Azure Function Event Grid Trigger
 Language      : JavaScript/Node.js
 
