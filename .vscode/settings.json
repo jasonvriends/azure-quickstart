@@ -1,11 +1,12 @@
 {
   "azureFunctions.projectRuntime": "~2",
   "azureFunctions.projectLanguage": "JavaScript",
-  "azureFunctions.deploySubpath": "6-bonus\\lifx\\lifxProj",
+  "azureFunctions.deploySubpath": "6-bonus\\teXXmo\\teXXmoProj",
   "azureFunctions.preDeployTask": "func: extensions install",
   "files.exclude": {
     "obj": true,
     "bin": true
   },
-  "debug.internalConsoleOptions": "neverOpen"
+  "debug.internalConsoleOptions": "neverOpen",
+  "azureFunctions.templateFilter": "All"
 }

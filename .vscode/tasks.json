@@ -8,7 +8,7 @@
       "dependsOn": "func: extensions install",
       "isBackground": true,
       "options": {
-        "cwd": "${workspaceFolder}/6-bonus\\lifx\\lifxProj"
+        "cwd": "${workspaceFolder}/6-bonus\\teXXmo\\teXXmoProj"
       }
     }
   ]
