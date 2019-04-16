@@ -82,6 +82,7 @@ Currently, its not possible to register IoT devices via Azure Resource Manager t
 1. Launch <a href="https://shell.azure.com">Azure Cloud Shell</a>.
 2. Install the Azure CLI IoT Extension
    * **az extension add --name azure-cli-iot-ext**
-3. Execute the **az iot hub monitor-events --hub-name** <hub_name>
-4. Press the teXXmo Azure IoT button and confirm the event occured.
+3. Monitor device telemetry & messages sent to an Azure IoT hub.
+   * **az iot hub monitor-events --hub-name** <hub_name>
+4. Press the teXXmo Azure IoT button and confirm the message was received by the Azure IoT hub.
 
