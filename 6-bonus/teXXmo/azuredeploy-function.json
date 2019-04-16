@@ -4,11 +4,17 @@
   "parameters": {
     "appName": {
       "type": "string",
-      "defaultValue": "teXXmo",            
+      "defaultValue":"teXXmo",      
       "metadata": {
         "description": "The name of the function app that you wish to create."
       }
     },
+    "lifxPersonalAccessToken": {
+      "type": "string",
+      "metadata": {
+        "description": "The LIFX HTTP API requires a personal access token that can be obtained from https://cloud.lifx.com."
+      }
+    },  
     "repoURL": {
       "type": "string",
       "defaultValue":"https://github.com/jasonvriends/azure-quickstart.git",
@@ -25,7 +31,7 @@
     },            
     "folderPath": {
       "type": "string",
-      "defaultValue": "/6-bonus/teXXmo",      
+      "defaultValue": "6-bonus/teXXmo/functionProj",      
       "metadata": {
         "description": "The folder path of the source control. Path must be relative."
       }
@@ -53,7 +59,8 @@
     "applicationInsightsName": "[concat(parameters('appName'),'-insights')]",
     "storageAccountName": "[concat(parameters('appName'),uniquestring(resourceGroup().id))]",
     "storageAccountid": "[concat(resourceGroup().id,'/providers/','Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]",
-    "functionWorkerRuntime": "[parameters('runtime')]"
+    "functionWorkerRuntime": "[parameters('runtime')]",
+    "lifxPersonalAccessToken":"[parameters('lifxPersonalAccessToken')]"
   },
   "resources": [
     {
@@ -138,7 +145,7 @@
           "properties": {
             "RepoUrl": "[parameters('repoURL')]",
             "branch": "[parameters('branch')]",
-            "folderPath": "[parameters('folderPath')]",            
+            "folderPath": "[parameters('folderPath')]",
             "IsManualIntegration": true
           }
         }
