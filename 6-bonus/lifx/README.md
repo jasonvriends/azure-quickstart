@@ -68,7 +68,7 @@ $repoURL="https://github.com/jasonvriends/azure-quickstart.git" # The URL for th
 $branch="master"                                                # The branch of the GitHub repository to use.
 $storageAccountType="Standard_LRS"                              # Storage Account Type
 $runtime="node"                                                 # The language worker runtime to load in the function app.
-$folderPath="/6-bonus/lifx"                                     # The folder path of the source control. Path must be relative.
+$folderPath="6-bonus/lifx/functionProj"                         # The folder path of the source control. Path must be relative.
 
 # Resource Group Creation
 $DeploymentResourceGroup="$ResourceGroupName-$AzureEnvironment-rg"
@@ -97,7 +97,7 @@ repoURL="https://github.com/jasonvriends/azure-quickstart.git" # The URL for the
 branch="master"                                                # The branch of the GitHub repository to use.
 storageAccountType="Standard_LRS"                              # Storage Account Type
 runtime="node"                                                 # The language worker runtime to load in the function app.
-folderPath="/6-bonus/lifx"                                     # The folder path of the source control. Path must be relative.
+folderPath="6-bonus/lifx/functionProj"                         # The folder path of the source control. Path must be relative.
 
 
 # Resource Group Creation
@@ -128,7 +128,7 @@ az group deployment create --name "deploy-lifx" --resource-group "$DeploymentRes
         * Build Status: **Succeeded**
     * Action: **Post via HTTP**
         * Settings
-        * URL: https://<**function_url**>/api/lifxHttpTriggerFunc?code=**<your_function_code>**&selector=all&power=on&effect=breathe&color=green&persist=true&period=3&cycles=10
+        * URL: https://<**function_url**>/api/httpTriggerFunc?code=**<your_function_code>**&selector=all&power=on&effect=breathe&color=green&persist=true&period=3&cycles=10
 7. Create a new Service Hook for **Build Failed**
     * Service: **Web Hooks**
     * Trigger: **Build Completed**
@@ -137,7 +137,7 @@ az group deployment create --name "deploy-lifx" --resource-group "$DeploymentRes
         * Build Status: **Failed**
     * Action: **Post via HTTP**
         * Settings
-        * URL: https://<**function_url**>/api/lifxHttpTriggerFunc?code=**<your_function_code>**&selector=all&power=on&effect=breathe&color=red&persist=true&period=3&cycles=10
+        * URL: https://<**function_url**>/api/httpTriggerFunc?code=**<your_function_code>**&selector=all&power=on&effect=breathe&color=red&persist=true&period=3&cycles=10
 8. Create a Pipeline that executes the command
     * docker build -f Dockerfile -t $(imageName) .
 9. Create a Dockerfile within the repo that contains
