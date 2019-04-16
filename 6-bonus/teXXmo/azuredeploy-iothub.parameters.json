@@ -3,7 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "iotHubName": {
-      "value": "[concat('myIoTHub', uniqueString(resourceGroup().id))]"
+      "value": "[concat('teXXmo', uniqueString(resourceGroup().id))]"
     },
     "iotHubSkuName": {
       "value": "F1"
