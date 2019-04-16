@@ -145,6 +145,7 @@
           "properties": {
             "RepoUrl": "[parameters('repoURL')]",
             "branch": "[parameters('branch')]",
+            "folderPath": "[parameters('folderPath')]",            
             "IsManualIntegration": true
           }
         }
