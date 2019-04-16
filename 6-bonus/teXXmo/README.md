@@ -24,10 +24,12 @@ To deploy this quickstart template, you need the following:
 
 ## Azure Portal
 
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fjasonvriends%2Fazure-quickstart%2Fmaster%2F6-bonus/teXXmo/%2Fazuredeploy.json" target="_blank">
+### Azure IoT Hub
+
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fjasonvriends%2Fazure-quickstart%2Fmaster%2F6-bonus/teXXmo/%2Fazuredeploy-iothub.json" target="_blank">
     <img src="http://azuredeploy.net/deploybutton.png"/>
 </a>
-<a href="http://armviz.io/#/?load=https%3A%2F%2Fraw.githubusercontent.com%2Fjasonvriends%2Fazure-quickstart%2Fmaster%2F6-bonus/teXXmo/%2Fazuredeploy.json" target="_blank">
+<a href="http://armviz.io/#/?load=https%3A%2F%2Fraw.githubusercontent.com%2Fjasonvriends%2Fazure-quickstart%2Fmaster%2F6-bonus/teXXmo/%2Fazuredeploy-iothub.json" target="_blank">
     <img src="http://armviz.io/visualizebutton.png"/>
 </a><br/>
 
@@ -42,7 +44,16 @@ Currently, its not possible to register IoT devices via Azure Resource Manager t
 * Select **teXXmo**
   * Note the **Primary** and **Secondary** key.
   * Note the **Hostname** under **Connection string (primary key)**.
-  * These will be required for [Step 3: Configure teXXmo Azure IoT Button](#step-3-configure-teXXmo-azure-iot-button).
+  * These will be required for [Step 3: Configure teXXmo Azure IoT Button](#step-3-configure-teXXmo-azure-iot-button.
+
+### Azure Function IoT Hub Trigger
+
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fjasonvriends%2Fazure-quickstart%2Fmaster%2F6-bonus/teXXmo/%2Fazuredeploy-function.json" target="_blank">
+    <img src="http://azuredeploy.net/deploybutton.png"/>
+</a>
+<a href="http://armviz.io/#/?load=https%3A%2F%2Fraw.githubusercontent.com%2Fjasonvriends%2Fazure-quickstart%2Fmaster%2F6-bonus/teXXmo/%2Fazuredeploy-function.json" target="_blank">
+    <img src="http://armviz.io/visualizebutton.png"/>
+</a><br/>
 
 ## Azure PowerShell
 
