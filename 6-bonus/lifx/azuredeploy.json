@@ -31,7 +31,7 @@
     },            
     "folderPath": {
       "type": "string",
-      "defaultValue": "6-bonus/lifx/lifxProj",      
+      "defaultValue": "/6-bonus/lifx",      
       "metadata": {
         "description": "The folder path of the source control. Path must be relative."
       }
