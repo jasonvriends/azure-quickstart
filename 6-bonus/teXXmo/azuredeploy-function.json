@@ -60,8 +60,7 @@
     "applicationInsightsName": "[parameters('appName')]",
     "storageAccountName": "[concat(uniquestring(resourceGroup().id), 'azfunctions')]",
     "storageAccountid": "[concat(resourceGroup().id,'/providers/','Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]",
-    "functionWorkerRuntime": "[parameters('runtime')]",
-    "lifxPersonalAccessToken":"[parameters('lifxPersonalAccessToken')]"
+    "functionWorkerRuntime": "[parameters('runtime')]"
   },
   "resources": [
     {
@@ -130,10 +129,6 @@
             {
               "name": "FUNCTIONS_WORKER_RUNTIME",
               "value": "[variables('functionWorkerRuntime')]"
-            },
-            {
-              "name": "lifxPersonalAccessToken",
-              "value": "[variables('lifxPersonalAccessToken')]"
             }
           ]
         }
