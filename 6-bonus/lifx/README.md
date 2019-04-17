@@ -57,7 +57,7 @@ To deploy this quickstart template, you need the following:
 ```powershell
 
 # Azure Subscription Configuration
-######################################################################################################################
+####################################################################################################################
 
 ## Input the Azure Region to deploy the resources to (i.e. canadaeast, canadacentral, eastus, etc.).
 $AzureRegion="eastus"
@@ -67,9 +67,9 @@ $AzureEnvironment="bonus"
 
 ## Input the prefix for the resource group to deploy this quickstart template into.
 $ResourceGroupName="lifx"
-
+ 
 # Template Parameters
-################################################################################################################################
+####################################################################################################################
 
 ## Input the name of the function app that you wish to create.
 $appName="lifx"
