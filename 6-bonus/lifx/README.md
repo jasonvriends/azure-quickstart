@@ -72,7 +72,7 @@ $ResourceGroupName="lifx"
 ###################################################################################################################
 
 ## Input the name of the function app that you wish to create.
-$appName="lifx"
+$appNamePrefix="lifx"
 
 ## Input your LIFX Personal Access Token from https://cloud.lifx.com
 $lifxPersonalAccessToken=""
@@ -96,7 +96,7 @@ New-AzureRmResourceGroup -Name "$DeploymentResourceGroup" -Location "$AzureRegio
 ###################################################################################################################
 
 $TemplateUri="https://github.com/jasonvriends/azure-quickstart/raw/master/6-bonus/lifx/azuredeploy.json"
-New-AzResourceGroupDeployment -Name "deploy-lifx" -ResourceGroupName "$DeploymentResourceGroup" -TemplateUri "$TemplateUri" -appName "$appName" -lifxPersonalAccessToken "$lifxPersonalAccessToken" -repoURL "$repoURL" -branch "$branch" -storageAccountType "$storageAccountType" -runtime "$runtime" -folderPath "$folderPath"
+New-AzResourceGroupDeployment -Name "deploy-lifx" -ResourceGroupName "$DeploymentResourceGroup" -TemplateUri "$TemplateUri" -appNamePrefix "$appNamePrefix" -lifxPersonalAccessToken "$lifxPersonalAccessToken" -repoURL "$repoURL" -branch "$branch" -storageAccountType "$storageAccountType" -runtime "$runtime" -folderPath "$folderPath"
 
 
 ```
@@ -121,7 +121,7 @@ ResourceGroupName="lifx"
 ###################################################################################################################
 
 ## Input the name of the function app that you wish to create.
-appName="lifx"
+appNamePrefix="lifx"
 
 ## Input your LIFX Personal Access Token from https://cloud.lifx.com
 lifxPersonalAccessToken=""
@@ -145,7 +145,7 @@ az group create -n "$DeploymentResourceGroup" -l "$AzureRegion"
 ###################################################################################################################
 
 TemplateUri="https://github.com/jasonvriends/azure-quickstart/raw/master/6-bonus/lifx/azuredeploy.json"
-az group deployment create --name "deploy-lifx" --resource-group "$DeploymentResourceGroup" --template-uri "$TemplateUri" --parameters appName="$appName" lifxPersonalAccessToken="$lifxPersonalAccessToken" repoURL="$repoURL" branch="$branch" storageAccountType="$storageAccountType" runtime="$runtime" folderPath="$folderPath"
+az group deployment create --name "deploy-lifx" --resource-group "$DeploymentResourceGroup" --template-uri "$TemplateUri" --parameters appNamePrefix="$appNamePrefix" lifxPersonalAccessToken="$lifxPersonalAccessToken" repoURL="$repoURL" branch="$branch" storageAccountType="$storageAccountType" runtime="$runtime" folderPath="$folderPath"
 
 
 ```

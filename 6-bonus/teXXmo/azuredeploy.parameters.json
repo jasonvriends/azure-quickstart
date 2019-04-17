@@ -2,8 +2,8 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "iotHubName": {
-      "value": "teXXmo"
+    "iotHubNamePrefix": {
+      "value": "iot"
     },
     "iotHubSkuName": {
       "value": "F1"
@@ -17,7 +17,7 @@
     "iotHubPartitionCount": {
       "value": 2
     },
-    "functionAppName": {
+    "functionAppPrefix": {
       "value":"teXXmo"  
     },
     "functionPackageUri": {

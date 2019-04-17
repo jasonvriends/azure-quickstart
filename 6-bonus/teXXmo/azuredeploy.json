@@ -2,9 +2,9 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "iotHubName": {
+    "iotHubNamePrefix": {
       "type": "string",
-      "defaultValue": "[concat('iothub', uniqueString(resourceGroup().id))]"
+      "defaultValue": "iot"
     },
     "iotHubSkuName": {
       "type": "string",
@@ -34,9 +34,9 @@
       "defaultValue": 2,
       "minValue": 2
     },
-    "functionAppName": {
+    "functionAppPrefix": {
       "type": "string",
-      "defaultValue":"[concat('teXXmo', uniqueString(resourceGroup().id))]",      
+      "defaultValue":"teXXmo",      
       "metadata": {
         "description": "The name of the function app that you wish to create."
       }
@@ -66,54 +66,61 @@
     }    
   },
   "variables": {
-    "functionAppName": "[concat(parameters('functionAppName'),'-app')]",
-    "hostingPlanName": "[concat(parameters('functionAppName'),'-apps')]",
-    "PackageUri": "[parameters('functionPackageUri')]",
-    "applicationInsightsName": "[concat(parameters('functionAppName'),'-insights')]",
-    "storageAccountName": "[concat(parameters('functionAppName'),uniquestring(resourceGroup().id))]",
-    "storageAccountid": "[concat(resourceGroup().id,'/providers/','Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]",
-    "functionWorkerRuntime": "[parameters('functionRuntime')]"
+    "iotHubNamePrefix":"[concat(parameters('iotHubNamePrefix'),uniquestring(resourceGroup().id),'-hub')]",
+    "iotHubSkuName":"[parameters('iotHubSkuName')]",
+    "iotHubSkuCapacity":"[parameters('iotHubSkuCapacity')]",
+    "iotHubMessageRetentionInDays":"[parameters('iotHubMessageRetentionInDays')]",
+    "iotHubPartitionCount":"[parameters('iotHubPartitionCount')]",
+    "functionAppPrefix": "[parameters('functionAppPrefix')]",
+    "functionAppName": "[concat(parameters('functionAppPrefix'),uniquestring(resourceGroup().id),'-app')]",
+    "functionHostingPlanName": "[concat(parameters('functionAppPrefix'),uniquestring(resourceGroup().id),'-apps')]",
+    "functionPackageUri": "[parameters('functionPackageUri')]",
+    "functionApplicationInsightsName": "[concat(parameters('functionAppPrefix'),uniquestring(resourceGroup().id),'-insights')]",
+    "functionStorageAccountName": "[concat(parameters('functionAppPrefix'),uniquestring(resourceGroup().id))]",
+    "functionStorageAccountType":"[concat(parameters('functionStorageAccountType')]",
+    "functionStorageAccountid": "[concat(resourceGroup().id,'/providers/','Microsoft.Storage/storageAccounts/', variables('functionStorageAccountName'))]",
+    "functionRuntime": "[parameters('functionRuntime')]"
   },
   "resources": [
     {
       "apiVersion": "2018-04-01",
-      "name": "[parameters('iotHubName')]",
+      "name": "[variables('iotHubNamePrefix')]",
       "type": "Microsoft.Devices/IotHubs",
       "location": "[resourceGroup().location]",
       "sku": {
-        "name": "[parameters('iotHubSkuName')]",
-        "capacity": "[parameters('iotHubSkuCapacity')]"
+        "name": "[variables('iotHubSkuName')]",
+        "capacity": "[variables('iotHubSkuCapacity')]"
       },
       "properties": {
         "eventHubEndpoints": {
           "events": {
-            "retentionTimeInDays": "[parameters('iotHubMessageRetentionInDays')]",
-            "partitionCount": "[parameters('iotHubPartitionCount')]"
+            "retentionTimeInDays": "[variables('iotHubMessageRetentionInDays')]",
+            "partitionCount": "[variables('iotHubPartitionCount')]"
           },
           "operationsMonitoringEvents": {
-            "retentionTimeInDays": "[parameters('iotHubMessageRetentionInDays')]",
-            "partitionCount": "[parameters('iotHubPartitionCount')]"
+            "retentionTimeInDays": "[variables('iotHubMessageRetentionInDays')]",
+            "partitionCount": "[variables('iotHubPartitionCount')]"
           }
         }
       }
     },
     {
       "type": "Microsoft.Storage/storageAccounts",
-      "name": "[variables('storageAccountName')]",
+      "name": "[variables('functionStorageAccountName')]",
       "apiVersion": "2016-12-01",
       "location": "[resourceGroup().location]",
       "kind": "Storage",
       "sku": {
-        "name": "[parameters('storageAccountType')]"
+        "name": "[variables('functionStorageAccountType')]"
       }
     },
     {
       "type": "Microsoft.Web/serverfarms",
       "apiVersion": "2015-04-01",
-      "name": "[variables('hostingPlanName')]",
+      "name": "[variables('functionHostingPlanName')]",
       "location": "[resourceGroup().location]",
       "properties": {
-        "name": "[variables('hostingPlanName')]",
+        "name": "[variables('functionHostingPlanName')]",
         "computeMode": "Dynamic",
         "sku": "Dynamic"
       }
@@ -125,25 +132,25 @@
       "location": "[resourceGroup().location]",
       "kind": "functionapp",
       "dependsOn": [
-        "[resourceId('Microsoft.Web/serverfarms', variables('hostingPlanName'))]",
-        "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
-        "[resourceId('Microsoft.Devices/IoTHubs', parameters('iotHubName'))]"
+        "[resourceId('Microsoft.Web/serverfarms', variables('functionHostingPlanName'))]",
+        "[resourceId('Microsoft.Storage/storageAccounts', variables('functionStorageAccountName'))]",
+        "[resourceId('Microsoft.Devices/IoTHubs', variables('iotHubNamePrefix'))]"
       ],
       "properties": {
-        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('hostingPlanName'))]",
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('functionHostingPlanName'))]",
         "siteConfig": {
           "appSettings": [
             {
               "name": "AzureWebJobsDashboard",
-              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(variables('storageAccountid'),'2015-05-01-preview').key1)]"
+              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('functionStorageAccountName'), ';AccountKey=', listKeys(variables('functionStorageAccountid'),'2015-05-01-preview').key1)]"
             },
             {
               "name": "AzureWebJobsStorage",
-              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(variables('storageAccountid'),'2015-05-01-preview').key1)]"
+              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('functionStorageAccountName'), ';AccountKey=', listKeys(variables('functionStorageAccountid'),'2015-05-01-preview').key1)]"
             },
             {
               "name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
-              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(variables('storageAccountid'),'2015-05-01-preview').key1)]"
+              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('functionStorageAccountName'), ';AccountKey=', listKeys(variables('functionStorageAccountid'),'2015-05-01-preview').key1)]"
             },
             {
               "name": "WEBSITE_CONTENTSHARE",
@@ -159,15 +166,15 @@
             },
             {
               "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
-              "value": "[reference(resourceId('microsoft.insights/components/', variables('applicationInsightsName')), '2015-05-01').InstrumentationKey]"
+              "value": "[reference(resourceId('microsoft.insights/components/', variables('functionApplicationInsightsName')), '2015-05-01').InstrumentationKey]"
             },
             {
               "name": "FUNCTIONS_WORKER_RUNTIME",
-              "value": "[variables('functionWorkerRuntime')]"
+              "value": "[variables('functionRuntime')]"
             },
             {
               "name": "IoTHubConnectionString",
-              "value": "[concat('Endpoint=', reference(resourceId('Microsoft.Devices/IoTHubs', parameters('iotHubName')), providers('Microsoft.Devices', 'IoTHubs').apiVersions[0]).eventHubEndpoints.events.endpoint, ';SharedAccessKeyName=iothubowner;SharedAccessKey=', listKeys(resourceId('Microsoft.Devices/IotHubs', parameters('iotHubName')), providers('Microsoft.Devices', 'IoTHubs').apiVersions[0]).value[0].primaryKey, ';EntityPath=', reference(resourceId('Microsoft.Devices/IoTHubs', parameters('iotHubName')), providers('Microsoft.Devices', 'IoTHubs').apiVersions[0]).eventHubEndpoints.events.path)]"
+              "value": "[concat('Endpoint=', reference(resourceId('Microsoft.Devices/IoTHubs', variables('iotHubNamePrefix')), providers('Microsoft.Devices', 'IoTHubs').apiVersions[0]).eventHubEndpoints.events.endpoint, ';SharedAccessKeyName=iothubowner;SharedAccessKey=', listKeys(resourceId('Microsoft.Devices/IotHubs', variables('iotHubNamePrefix')), providers('Microsoft.Devices', 'IoTHubs').apiVersions[0]).value[0].primaryKey, ';EntityPath=', reference(resourceId('Microsoft.Devices/IoTHubs', variables('iotHubNamePrefix')), providers('Microsoft.Devices', 'IoTHubs').apiVersions[0]).eventHubEndpoints.events.path)]"
             }            
           ]
         }
@@ -175,14 +182,14 @@
     },
     {
       "apiVersion": "2018-05-01-preview",
-      "name": "[variables('applicationInsightsName')]",
+      "name": "[variables('functionApplicationInsightsName')]",
       "type": "microsoft.insights/components",
       "location": "[resourceGroup().location]",
       "tags": {
-        "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', variables('applicationInsightsName'))]": "Resource"
+        "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', variables('functionApplicationInsightsName'))]": "Resource"
       },
       "properties": {
-        "ApplicationId": "[variables('applicationInsightsName')]",
+        "ApplicationId": "[variables('functionApplicationInsightsName')]",
         "Request_Source": "IbizaWebAppExtensionCreate"
       }
     }
@@ -190,11 +197,11 @@
   "outputs": {
     "IoTHubConnectionString": {
       "type": "string",
-      "value": "[concat('HostName=', reference(resourceId('Microsoft.Devices/IoTHubs', parameters('iotHubName')), providers('Microsoft.Devices', 'IoTHubs').apiVersions[0]).hostName, ';SharedAccessKeyName=iothubowner;SharedAccessKey=', listKeys(resourceId('Microsoft.Devices/IotHubs', parameters('iotHubName')), providers('Microsoft.Devices', 'IoTHubs').apiVersions[0]).value[0].primaryKey)]"
+      "value": "[concat('HostName=', reference(resourceId('Microsoft.Devices/IoTHubs', variables('iotHubNamePrefix')), providers('Microsoft.Devices', 'IoTHubs').apiVersions[0]).hostName, ';SharedAccessKeyName=iothubowner;SharedAccessKey=', listKeys(resourceId('Microsoft.Devices/IotHubs', variables('iotHubNamePrefix')), providers('Microsoft.Devices', 'IoTHubs').apiVersions[0]).value[0].primaryKey)]"
     },
     "IoTHubEventHubCompatibleConnectionString": {
       "type": "string",
-      "value": "[concat('Endpoint=', reference(resourceId('Microsoft.Devices/IoTHubs', parameters('iotHubName')), providers('Microsoft.Devices', 'IoTHubs').apiVersions[0]).eventHubEndpoints.events.endpoint, ';SharedAccessKeyName=iothubowner;SharedAccessKey=', listKeys(resourceId('Microsoft.Devices/IotHubs', parameters('iotHubName')), providers('Microsoft.Devices', 'IoTHubs').apiVersions[0]).value[0].primaryKey, ';EntityPath=', reference(resourceId('Microsoft.Devices/IoTHubs', parameters('iotHubName')), providers('Microsoft.Devices', 'IoTHubs').apiVersions[0]).eventHubEndpoints.events.path)]"
+      "value": "[concat('Endpoint=', reference(resourceId('Microsoft.Devices/IoTHubs', variables('iotHubNamePrefix')), providers('Microsoft.Devices', 'IoTHubs').apiVersions[0]).eventHubEndpoints.events.endpoint, ';SharedAccessKeyName=iothubowner;SharedAccessKey=', listKeys(resourceId('Microsoft.Devices/IotHubs', variables('iotHubNamePrefix')), providers('Microsoft.Devices', 'IoTHubs').apiVersions[0]).value[0].primaryKey, ';EntityPath=', reference(resourceId('Microsoft.Devices/IoTHubs', variables('iotHubNamePrefix')), providers('Microsoft.Devices', 'IoTHubs').apiVersions[0]).eventHubEndpoints.events.path)]"
     }
   }
 }
