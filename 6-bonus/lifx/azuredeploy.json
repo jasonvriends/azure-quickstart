@@ -44,7 +44,7 @@
     "functionAppName": "[concat(parameters('appNamePrefix'),uniqueString(resourceGroup().id),'-app')]",
     "hostingPlanName": "[concat(parameters('appNamePrefix'),uniqueString(resourceGroup().id),'-apps')]",
     "packageUri": "[parameters('packageUri')]",
-    "applicationInsightsName": "[concat(parameters('appNamePrefix')uniqueString(resourceGroup().id),'-insights')]",
+    "applicationInsightsName": "[concat(parameters('appNamePrefix'),uniqueString(resourceGroup().id),'-insights')]",
     "storageAccountName": "[concat(parameters('appNamePrefix'),uniquestring(resourceGroup().id))]",
     "storageAccountid": "[concat(resourceGroup().id,'/providers/','Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]",
     "functionWorkerRuntime": "[parameters('runtime')]",
