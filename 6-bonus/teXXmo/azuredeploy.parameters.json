@@ -3,7 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "iotHubName": {
-      "value": "[concat('teXXmo', uniqueString(resourceGroup().id))]"
+      "value": "teXXmo"
     },
     "iotHubSkuName": {
       "value": "F1"
@@ -16,6 +16,18 @@
     },
     "iotHubPartitionCount": {
       "value": 2
+    },
+    "functionAppName": {
+      "value":"teXXmo"  
+    },
+    "functionPackageUri": {
+      "value":"https://raw.githubusercontent.com/jasonvriends/azure-quickstart/master/6-bonus/teXXmo/teXXmoProj.zip"
+    },
+    "functionStorageAccountType": {
+      "value": "Standard_LRS"
+    },
+    "functionRuntime": {
+      "value": "node"
     }
   }
 }
