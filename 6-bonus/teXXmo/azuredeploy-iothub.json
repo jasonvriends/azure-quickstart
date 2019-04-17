@@ -4,7 +4,7 @@
   "parameters": {
     "iotHubName": {
       "type": "string",
-      "defaultValue": "[concat('teXXmo', uniqueString(resourceGroup().id))]"
+      "defaultValue": "[concat('iothub', uniqueString(resourceGroup().id))]"
     },
     "iotHubSkuName": {
       "type": "string",
