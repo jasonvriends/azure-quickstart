@@ -102,16 +102,32 @@ New-AzResourceGroupDeployment -Name "deploy-lifx" -ResourceGroupName "$Deploymen
 ```shell
 
 # Azure Subscription Configuration
-AzureRegion="eastus"                                           # Input the Azure Region to deploy the resources to (i.e. canadaeast, canadacentral, eastus, etc.).
-AzureEnvironment="bonus"                                       # Input the prefix for your Azure Innovation Lab (i.e. dev, tst, prod, innovation, etc.).
-ResourceGroupName="lifx"                                       # Input the prefix for the resource group to deploy this quickstart template into.
+
+## Input the Azure Region to deploy the resources to (i.e. canadaeast, canadacentral, eastus, etc.).
+AzureRegion="eastus"
+
+## Input the prefix for your Azure Innovation Lab (i.e. dev, tst, prod, innovation, etc.).
+AzureEnvironment="bonus"
+
+## Input the prefix for the resource group to deploy this quickstart template into.
+ResourceGroupName="lifx"
 
 # Template Parameters
-appName="lifx"                                                 # Input the name of the function app that you wish to create.
-lifxPersonalAccessToken=""                                     # Input your LIFX Personal Access Token from https://cloud.lifx.com
+
+## Input the name of the function app that you wish to create.
+appName="lifx"
+
+## Input your LIFX Personal Access Token from https://cloud.lifx.com
+lifxPersonalAccessToken=""
+
+## The Github URL that contains the Azure Function binaries.
 $packageUri="https://raw.githubusercontent.com/jasonvriends/azure-quickstart/master/6-bonus/lifx/lifxProj.zip"
-storageAccountType="Standard_LRS"                              # Storage Account Type
-runtime="node"                                                 # The language worker runtime to load in the function app.
+
+# Storage Account Type
+storageAccountType="Standard_LRS"
+
+## The language worker runtime to load in the function app.
+runtime="node"
 
 # Resource Group Creation
 DeploymentResourceGroup="$ResourceGroupName-$AzureEnvironment-rg"
