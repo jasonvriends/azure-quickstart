@@ -19,7 +19,7 @@
       "type": "string",
       "defaultValue":"https://raw.githubusercontent.com/jasonvriends/azure-quickstart/master/6-bonus/lifx/lifxProj.zip",      
       "metadata": {
-        "description": "The Github URL that contains the Azure Function."
+        "description": "The Github URL that contains the Azure Function binaries."
       }
 
     },

@@ -11,15 +11,6 @@
     "packageUri": {
         "value":"https://raw.githubusercontent.com/jasonvriends/azure-quickstart/master/6-bonus/lifx/lifxProj.zip"
     },
-    "repoURL": {
-      "value": "https://github.com/jasonvriends/azure-quickstart.git"
-    },
-    "branch": {
-      "value": "master"
-    },
-    "folderPath": {
-      "value": "6-bonus/lifx/lifxProj"
-    },
     "storageAccountType": {
       "value": "Standard_LRS"
     },
