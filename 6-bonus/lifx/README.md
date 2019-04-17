@@ -57,7 +57,7 @@ To deploy this quickstart template, you need the following:
 ```powershell
 
 # Azure Subscription Configuration
-################################################################################################################################
+######################################################################################################################
 
 ## Input the Azure Region to deploy the resources to (i.e. canadaeast, canadacentral, eastus, etc.).
 $AzureRegion="eastus"
