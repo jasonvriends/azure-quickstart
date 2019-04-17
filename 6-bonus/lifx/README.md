@@ -96,7 +96,7 @@ New-AzureRmResourceGroup -Name "$DeploymentResourceGroup" -Location "$AzureRegio
 ##################################################################################################################
 
 $TemplateUri="https://github.com/jasonvriends/azure-quickstart/raw/master/6-bonus/lifx/azuredeploy.json"
-New-AzResourceGroupDeployment -Name "deploy-lifx" -ResourceGroupName "$DeploymentResourceGroup" -TemplateUri "$TemplateUri" -appNamePrefix "$appNamePrefix" -lifxPersonalAccessToken "$lifxPersonalAccessToken" -repoURL "$repoURL" -branch "$branch" -storageAccountType "$storageAccountType" -runtime "$runtime" -folderPath "$folderPath"
+New-AzResourceGroupDeployment -Name "deploy-lifx" -ResourceGroupName "$DeploymentResourceGroup" -TemplateUri "$TemplateUri" -appNamePrefix "$appNamePrefix" -lifxPersonalAccessToken "$lifxPersonalAccessToken" -storageAccountType "$storageAccountType" -runtime "$runtime"
 
 
 ```
@@ -145,7 +145,7 @@ az group create -n "$DeploymentResourceGroup" -l "$AzureRegion"
 ##################################################################################################################
 
 TemplateUri="https://github.com/jasonvriends/azure-quickstart/raw/master/6-bonus/lifx/azuredeploy.json"
-az group deployment create --name "deploy-lifx" --resource-group "$DeploymentResourceGroup" --template-uri "$TemplateUri" --parameters appNamePrefix="$appNamePrefix" lifxPersonalAccessToken="$lifxPersonalAccessToken" repoURL="$repoURL" branch="$branch" storageAccountType="$storageAccountType" runtime="$runtime" folderPath="$folderPath"
+az group deployment create --name "deploy-lifx" --resource-group "$DeploymentResourceGroup" --template-uri "$TemplateUri" --parameters appNamePrefix="$appNamePrefix" lifxPersonalAccessToken="$lifxPersonalAccessToken"  storageAccountType="$storageAccountType" runtime="$runtime"
 
 
 ```
