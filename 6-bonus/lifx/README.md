@@ -57,7 +57,7 @@ To deploy this quickstart template, you need the following:
 ```powershell
 
 # Azure Subscription Configuration
-###################################################################################################################
+##################################################################################################################
 
 ## Input the Azure Region to deploy the resources to (i.e. canadaeast, canadacentral, eastus, etc.).
 $AzureRegion="eastus"
@@ -69,7 +69,7 @@ $AzureEnvironment="bonus"
 $ResourceGroupName="lifx"
  
 # Template Parameters
-###################################################################################################################
+##################################################################################################################
 
 ## Input the name of the function app that you wish to create.
 $appNamePrefix="lifx"
@@ -87,13 +87,13 @@ $storageAccountType="Standard_LRS"
 $runtime="node"
 
 # Resource Group Creation
-###################################################################################################################
+##################################################################################################################
 
 $DeploymentResourceGroup="$ResourceGroupName-$AzureEnvironment-rg"
 New-AzureRmResourceGroup -Name "$DeploymentResourceGroup" -Location "$AzureRegion" -ErrorVariable notCreated -ErrorAction SilentlyContinue
 
 # Template Deployment to Resource Group
-###################################################################################################################
+##################################################################################################################
 
 $TemplateUri="https://github.com/jasonvriends/azure-quickstart/raw/master/6-bonus/lifx/azuredeploy.json"
 New-AzResourceGroupDeployment -Name "deploy-lifx" -ResourceGroupName "$DeploymentResourceGroup" -TemplateUri "$TemplateUri" -appNamePrefix "$appNamePrefix" -lifxPersonalAccessToken "$lifxPersonalAccessToken" -repoURL "$repoURL" -branch "$branch" -storageAccountType "$storageAccountType" -runtime "$runtime" -folderPath "$folderPath"
@@ -106,7 +106,7 @@ New-AzResourceGroupDeployment -Name "deploy-lifx" -ResourceGroupName "$Deploymen
 ```shell
 
 # Azure Subscription Configuration
-###################################################################################################################
+##################################################################################################################
 
 ## Input the Azure Region to deploy the resources to (i.e. canadaeast, canadacentral, eastus, etc.).
 AzureRegion="eastus"
@@ -118,7 +118,7 @@ AzureEnvironment="bonus"
 ResourceGroupName="lifx"
 
 # Template Parameters
-###################################################################################################################
+##################################################################################################################
 
 ## Input the name of the function app that you wish to create.
 appNamePrefix="lifx"
@@ -136,13 +136,13 @@ storageAccountType="Standard_LRS"
 runtime="node"
 
 # Resource Group Creation
-###################################################################################################################
+##################################################################################################################
 
 DeploymentResourceGroup="$ResourceGroupName-$AzureEnvironment-rg"
 az group create -n "$DeploymentResourceGroup" -l "$AzureRegion"
 
 # Template Deployment to Resource Group
-###################################################################################################################
+##################################################################################################################
 
 TemplateUri="https://github.com/jasonvriends/azure-quickstart/raw/master/6-bonus/lifx/azuredeploy.json"
 az group deployment create --name "deploy-lifx" --resource-group "$DeploymentResourceGroup" --template-uri "$TemplateUri" --parameters appNamePrefix="$appNamePrefix" lifxPersonalAccessToken="$lifxPersonalAccessToken" repoURL="$repoURL" branch="$branch" storageAccountType="$storageAccountType" runtime="$runtime" folderPath="$folderPath"
