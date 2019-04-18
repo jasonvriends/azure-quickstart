@@ -45,7 +45,7 @@
     "hostingPlanName": "[concat(parameters('appNamePrefix'),uniqueString(resourceGroup().id),'-apps')]",
     "packageUri": "[parameters('packageUri')]",
     "applicationInsightsName": "[concat(parameters('appNamePrefix'),uniqueString(resourceGroup().id),'-insights')]",
-    "storageAccountName": "[concat(parameters('appNamePrefix'),uniquestring(resourceGroup().id))]",
+    "storageAccountName": "[toLower(concat(parameters('appNamePrefix'),uniquestring(resourceGroup().id)))]",
     "storageAccountid": "[concat(resourceGroup().id,'/providers/','Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]",
     "functionWorkerRuntime": "[parameters('runtime')]",
     "lifxPersonalAccessToken":"[parameters('lifxPersonalAccessToken')]"

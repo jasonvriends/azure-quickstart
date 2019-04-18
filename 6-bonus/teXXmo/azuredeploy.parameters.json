@@ -18,7 +18,7 @@
       "value": 2
     },
     "functionAppPrefix": {
-      "value":"teXXmo"  
+      "value":"texxmo"  
     },
     "functionPackageUri": {
       "value":"https://raw.githubusercontent.com/jasonvriends/azure-quickstart/master/6-bonus/teXXmo/teXXmoProj.zip"
