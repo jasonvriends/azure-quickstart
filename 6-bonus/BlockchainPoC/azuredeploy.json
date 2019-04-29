@@ -1,0 +1,290 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+
+    "parameters": {
+        "dnsLabelPrefix": {
+            "type": "string",
+            "defaultValue": "dltworkshopA",
+            "metadata": {
+                "description": "Input your desired Virtual Machine dns label prefix.<br/><br/> Note: a suffix of -vm is appended to the Virtual Machine name."
+            }
+        },
+        "size": {
+            "type": "string",
+            "defaultValue": "Standard_E4_v3",
+            "metadata": {
+                "description": "Input your desired Virtual Machine instance size (e.g. Standard_B1ms)."
+            }
+        },
+        "osPublisher": {
+            "type": "string",
+            "defaultValue": "Canonical",
+            "metadata": {
+                "description": "Input the organization that created the image (e.g. MicrosoftWindowsServer, Canonical)."
+            }
+        },
+        "osOffer": {
+            "type": "string",
+            "defaultValue": "UbuntuServer",
+            "metadata": {
+                "description": "Input the name of a group of related images created by a publisher (e.g. UbuntuServer, WindowsServer, etc.)."
+            }
+        },
+        "osSKU": {
+            "type": "string",
+            "defaultValue": "18.04-LTS",
+            "metadata": {
+                "description": "Input the name of An instance of an offer, such as a major release of a distribution (e.g. 16.04-LTS, 2016-Datacenter, etc.)."
+            }
+        },
+        "osVersion": {
+            "type": "string",
+            "defaultValue": "latest",
+            "metadata": {
+                "description": "Input the version number of an image SKU."
+            }
+        },
+        "instances": {
+            "type": "int",
+            "defaultValue": 1,
+            "metadata": {
+                "description": "Input your desired Virtual Machine instances."
+            }
+        },
+        "extensionUri": {
+            "type": "string",
+            "defaultValue": "https://raw.githubusercontent.com/jasonvriends/azure-quickstart/master/6-bonus/BlockchainPoC/install-ubuntu-desktop.sh",
+            "metadata": {
+                "description": "Input the fileuri to your desired Custom Script Extension. <br/><br/>Note: As of 2019-01-24 this has only been tested on Ubuntu Linux."
+            }
+        },        
+        "extensionCommand": {
+            "type": "string",
+            "defaultValue": "./install-ubuntu-desktop.sh",            
+            "metadata": {
+                "description": "Input the command to execute of your desired Custom Script Extension. <br/><br/>Note: As of 2019-01-24 this has only been tested on Ubuntu Linux."
+            }
+        },        
+        "adminUsername": {
+            "type": "string",
+            "defaultValue": "vmadmin",
+            "metadata": {
+                "description": "Input your desired Virtual Machine administrator username."
+            }
+        },
+        "authenticationType": {
+            "type": "string",
+            "defaultValue": "password",
+            "allowedValues": [
+                "password",
+                "publickey"
+            ],
+            "metadata": {
+                "description": "Select your desired Virtual Machine authentication type."
+            }
+        },
+        "pwdOrPsk": {
+            "type": "securestring",
+            "defaultValue": "Dltworkshop#1",
+            "metadata": {
+                "description": "Input your desired Virtual Machine administrator password or SSH Public Key."
+            }
+        },
+        "vnetName": {
+            "type": "string",
+            "defaultValue": "innovation-vnet",
+            "metadata": {
+                "description": "Input your desired Virtual Network name."
+            }
+        },
+        "vnetSubnetName": {
+            "type": "string",
+            "defaultValue": "desktops",
+            "metadata": {
+                "description": "Input the name of your Virtual Network subnet."
+            }
+        },
+        "vnetResourceGroup": {
+            "type": "string",
+            "defaultValue": "ResourceGroup",
+            "metadata": {
+                "description": "Input the Resource Group where your Virtual Network resides."
+            }
+        },
+        "ipAddress": {
+            "type": "string",
+            "defaultValue": "private",
+            "allowedValues": [
+                "private",
+                "public"
+            ],
+            "metadata": {
+                "description": "Select your desired ip address type."
+            }
+        }
+    },
+
+    "variables": {
+        "apiversion": "2018-10-01",
+        "dnslabelprefix": "[trim(parameters('dnsLabelPrefix'))]",
+        "size": "[trim(parameters('size'))]",
+        "ospublisher": "[trim(parameters('osPublisher'))]",
+        "osoffer": "[trim(parameters('osOffer'))]",
+        "ossku": "[trim(parameters('osSKU'))]",
+        "osversion": "[trim(parameters('osVersion'))]",
+        "instances": "[parameters('instances')]",
+        "extensionuri":"[trim(parameters('extensionUri'))]",
+        "extensioncommand":"[trim(parameters('extensionCommand'))]",
+        "adminusername": "[trim(parameters('adminUsername'))]",
+        "authenticationtype": "[trim(parameters('authenticationtype'))]",
+        "pwdorpsk": "[trim(parameters('pwdOrPsk'))]",
+        "ipaddress": "[trim(parameters('ipAddress'))]",
+        "vnetname": "[trim(parameters('vnetName'))]",
+        "vnetsubnetname": "[trim(parameters('vnetSubnetName'))]",
+        "vnetresourcegroup": "[trim(parameters('vnetResourceGroup'))]",
+        "vnetid": "[resourceId(variables('vnetresourcegroup'), 'Microsoft.Network/virtualNetworks', variables('vnetname'))]",
+        "subnetref": "[concat(variables('vnetid'),'/subnets/', variables('vnetsubnetname'))]",
+        "linuxConfiguration": {
+            "disablePasswordAuthentication": true,
+            "ssh": {
+                "publicKeys": [
+                    {
+                        "path": "[concat('/home/', variables('adminusername'), '/.ssh/authorized_keys')]",
+                        "keyData": "[variables('pwdorpsk')]"
+                    }
+                ]
+            }
+        }
+    },
+
+    "resources": [
+
+        {
+            "apiVersion": "[variables('apiVersion')]",
+            "condition": "[equals(variables('ipaddress'),'public')]",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "name": "[concat(variables('dnslabelprefix'), if(lessOrEquals(variables('instances'),1),'',copyindex(1)),'-pip')]",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "publicIPAllocationMethod": "Dynamic",
+                "dnsSettings": {
+                    "domainNameLabel": "[concat(variables('dnslabelprefix'),if(lessOrEquals(variables('instances'),1),'',copyindex(1)))]"
+                }
+            },
+            "copy": {
+                "name": "pipCount",
+                "count": "[variables('instances')]"
+            }            
+        },
+
+        {
+            "apiVersion": "[variables('apiVersion')]",
+            "type": "Microsoft.Network/networkInterfaces",
+            "name": "[concat(variables('dnslabelprefix'), if(lessOrEquals(variables('instances'),1),'',copyindex(1)),'-nic')]",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[concat('Microsoft.Network/publicIPAddresses/',variables('dnslabelprefix'), if(lessOrEquals(variables('instances'),1),'',copyindex(1)),'-pip')]"
+            ],
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "privateIPAllocationMethod": "Dynamic",
+                            "subnet": {
+                                "id": "[variables('subnetref')]"
+                            },
+                            "publicIPAddress": "[if(equals(variables('ipaddress'),'public'), resourceId('Microsoft.Network/publicIPAddresses/',concat(variables('dnslabelprefix'), if(lessOrEquals(variables('instances'),1),'',copyindex(1)),'-pip')), json('null'))]"
+                        }
+                    }
+                ]
+            },
+            "copy": {
+                "name": "nicCount",
+                "count": "[variables('instances')]"
+            }            
+        },
+
+        {
+            "apiVersion": "[variables('apiVersion')]",
+            "type": "Microsoft.Compute/virtualMachines",
+            "name": "[concat(variables('dnslabelprefix'), if(lessOrEquals(variables('instances'),1),'',copyindex(1)),'-vm')]",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkInterfaces',concat(variables('dnslabelprefix'), if(lessOrEquals(variables('instances'),1),'',copyindex(1)),'-nic'))]"
+            ],
+            "properties": {
+                "hardwareprofile": {
+                    "vmsize": "[variables('size')]"
+                },
+                "osProfile": {
+                    "computerName": "[concat(variables('dnslabelprefix'), if(lessOrEquals(variables('instances'),1),'',copyindex(1)),'-vm')]",
+                    "adminUsername": "[variables('adminusername')]",
+                    "adminPassword": "[if(equals(variables('authenticationtype'), 'password'), variables('pwdorpsk'), json('null'))]",
+                    "linuxConfiguration": "[if(equals(variables('authenticationtype'), 'password'), json('null'), variables('linuxConfiguration'))]"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "[variables('ospublisher')]",
+                        "offer": "[variables('osoffer')]",
+                        "sku": "[variables('ossku')]",
+                        "version": "[variables('osversion')]"
+                    },
+                    "osdisk": {
+                        "name": "[concat(variables('dnslabelprefix'), if(lessOrEquals(variables('instances'),1),'',copyindex(1)),'-osdisk')]",
+                        "createOption": "FromImage",
+                        "managedDisk": {
+                            "storageAccountType": "Standard_LRS"
+                        },
+                        "caching": "ReadWrite"
+                    }
+                },
+                "networkprofile": {
+                    "networkinterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces',concat(variables('dnslabelprefix'), if(lessOrEquals(variables('instances'),1),'',copyindex(1)),'-nic'))]"
+                        }
+                    ]
+                }
+            },
+            "copy": {
+                "name": "vmCount",
+                "count": "[variables('instances')]"
+            }            
+        },
+
+        {
+
+            "apiVersion": "[variables('apiVersion')]",
+            "condition": "[not(and(empty(variables('extensionuri')),empty(variables('extensioncommand'))))]",
+            "name": "[concat(variables('dnslabelprefix'), if(lessOrEquals(variables('instances'),1),'',copyindex(1)),'-vm/custom-script-extension')]",            
+            "type": "Microsoft.Compute/virtualMachines/extensions",
+            "location": "[resourceGroup().location]",
+            "comments" : "/var/lib/waagent/custom-script/download/0/",
+            "copy": {
+                "name": "extensionCount",
+                "count": "[variables('instances')]"
+            },
+            "dependsOn": [
+                "[concat(variables('dnslabelprefix'), if(lessOrEquals(variables('instances'),1),'',copyindex(1)),'-vm')]"
+            ],
+            "tags": {
+                "displayName": "Custom Script Extension"
+            },
+            "properties": {
+                "publisher": "Microsoft.Azure.Extensions",
+                "type": "CustomScript",
+                "typeHandlerVersion": "2.0",
+                "autoUpgradeMinorVersion": false,
+              "settings": {
+                "commandToExecute": "[variables('extensioncommand')]",
+                "fileUris": [
+                    "[variables('extensionuri')]"
+                ]
+              }
+            }
+        }
+
+    ]
+}
