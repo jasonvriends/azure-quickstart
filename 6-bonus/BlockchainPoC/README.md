@@ -1,6 +1,6 @@
 # 6-bonus/Blockchain PoC
 
-...
+This is a basic Blockchain project that can be used as a base Blockchain framework for a PoC. This particular project deploys Hyperledger Fabric/Compose toolsets on Ubuntu desktop OS and installs all the needed tools for Blockchain development.  Once you have access to the development VM, Please use BlockchainOnCloudWorkshopGuide.pdf document to finish off the installation. 
 
 # Table of Contents
 
