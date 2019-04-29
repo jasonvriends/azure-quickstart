@@ -54,7 +54,7 @@
         },
         "extensionUri": {
             "type": "string",
-            "defaultValue": "https://raw.githubusercontent.com/jasonvriends/azure-quickstart/master/6-bonus/BlockchainPoC/install-ubuntu-desktop.sh",
+            "defaultValue": "https://raw.githubusercontent.com/jasonvriends/azure-quickstart/master/6-bonus/BlockchainPoC/install-ubuntu-desktop-with-blockchainscripts.sh",
             "metadata": {
                 "description": "Input the fileuri to your desired Custom Script Extension. <br/><br/>Note: As of 2019-01-24 this has only been tested on Ubuntu Linux."
             }
