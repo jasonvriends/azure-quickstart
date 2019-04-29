@@ -13,4 +13,4 @@ The teXXmo IoT Button enables direct customer or workforce feedback into Azure. 
 
 ## <a href="https://github.com/jasonvriends/azure-quickstart/tree/master/6-bonus/BlockchainPoC">6-bonus/blockchainPoC</a>
 
-<todo> Add description.
+This is a basic Blockchain project that can be used as a base Blockchain framework for a PoC. This particular project deploys Hyperledger Fabric/Compose toolsets on Ubuntu desktop OS and installs all the needed tools for Blockchain development. 
