@@ -62,11 +62,11 @@ curl -O https://hyperledger.github.io/composer/latest/prereqs-ubuntu.sh
 chmod a+x prereqs-ubuntu.sh
 
 ## Download and set chmod 755 to Hyperledger composer setup script
-wget https://raw.githubusercontent.com/nirubank/azure-virtualmachine-extensions/master/setupComposer.sh
+wget https://raw.githubusercontent.com/jasonvriends/azure-quickstart/master/6-bonus/BlockchainPoC/setupComposer.sh
 chmod a+x setupComposer.sh
 
 ## Download and set chmod 755 to Visual studio code setup script
-wget https://raw.githubusercontent.com/nirubank/azure-virtualmachine-extensions/master/install-vscode.sh
+wget https://raw.githubusercontent.com/jasonvriends/azure-quickstart/master/6-bonus/BlockchainPoC/install-vscode.sh
 chmod a+x install-vscode.sh
 
-wget https://raw.githubusercontent.com/nirubank/dltWorkshop/master/BlockchainOnCloudLabGuide.docx
+wget https://raw.githubusercontent.com/jasonvriends/azure-quickstart/master/6-bonus/BlockchainPoC/BlockchainOnCloudLabGuide.docx
