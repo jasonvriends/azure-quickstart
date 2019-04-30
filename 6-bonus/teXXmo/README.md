@@ -198,3 +198,10 @@ az group deployment create --name "deploy-teXXmo-bonus" --resource-group "$Deplo
    * **az iot hub monitor-events --hub-name** <hub_name>
 4. Press the teXXmo Azure IoT button and confirm the message was received by the Azure IoT hub.
 
+# Step 6: Modify the Azure IoT Hub Function App as desired.
+
+1. Browse to the **Resource Group** containing your **Azure IoT Hub**.
+2. Select the **texxmo** App Service.
+3. Select the function **IoTHub_EventHub1**.
+4. Modify the code as required to take your desired action for when the teXXmo Azure IoT button is trigger.
+
