@@ -39,20 +39,130 @@ Currently, its not possible to register IoT devices via Azure Resource Manager t
   * Input **teXXmo1** for **Device ID** (or any friendly name that you prefer).
   * Select **Symmetric key** for **Authentication type**.
   * Select **Save** and Primary and Secondary keys will be automatically generated.
-* Select **teXXmo**
-  * Note the **Primary** and **Secondary** key.
-  * Note the **Hostname** under **Connection string (primary key)**.
-  * These will be required for [Step 3: Configure teXXmo Azure IoT Button](#step-3-configure-teXXmo-azure-iot-button.
+* Select **teXXmo1**
+  * Note the following:
+    * **Primary** and **Secondary** keys.
+    * **Hostname** under **Connection string (primary key)**.
+    * These will be required for [Step 3: Configure teXXmo Azure IoT Button](#step-3-configure-teXXmo-azure-iot-button).
 
 ## Azure PowerShell
 
 ```powershell
+
+# Azure Subscription Configuration
+##################################################################################################################
+
+## Input the Azure Region to deploy the resources to (i.e. canadaeast, canadacentral, eastus, etc.).
+$AzureRegion="eastus"
+
+## Input the prefix for your Azure Innovation Lab (i.e. dev, tst, prod, innovation, etc.).
+$AzureEnvironment="bonus"
+
+## Input the prefix for the resource group to deploy this quickstart template into.
+$ResourceGroupName="texxmo"
+
+# Template Parameters
+##################################################################################################################
+
+## Input the prefix of the Azure IoT hub that you wish to create.
+$iotHubNamePrefix="iot"
+
+## Input the pricing tier of the Azure IoT hub.
+$iotHubSkuName="F1"
+
+## Input the pricing tier and the capacity determine the maximum daily quota of messages that you can send.
+$iotHubSkuCapacity="int"
+
+## Input how long the IoT hub will maintain device-to-cloud events.
+$iotHubMessageRetentionInDays=1
+
+## Input the number of partitions relates the device-to-cloud messages to the number of simultaneous readers of these messages.
+$iotHubPartitionCount=2
+
+## Input the prefix of the Azure Function App that you wish to create.
+$functionAppPrefix="texxmo"
+
+## The Github URL that contains the Azure Function binaries.
+$functionPackageUri="https://raw.githubusercontent.com/jasonvriends/azure-quickstart/master/6-bonus/teXXmo/teXXmoProj.zip"
+
+## Storage Account Type
+$functionStorageAccountType="Standard_LRS"
+
+## The language worker runtime to load in the function app.
+$functionRuntime="node"
+
+# Resource Group Creation
+##################################################################################################################
+
+$DeploymentResourceGroup="$ResourceGroupName-$AzureEnvironment-rg"
+New-AzureRmResourceGroup -Name "$DeploymentResourceGroup" -Location "$AzureRegion"
+
+# Template Deployment to Resource Group
+##################################################################################################################
+
+$TemplateUri="https://raw.githubusercontent.com/jasonvriends/azure-quickstart/master/6-bonus/teXXmo/azuredeploy.json"
+New-AzResourceGroupDeployment -Name "deploy-teXXmo-bonus" -ResourceGroupName "$DeploymentResourceGroup" -TemplateUri "$TemplateUri"  -iotHubNamePrefix $iotHubNamePrefix -iotHubSkuName $iotHubSkuName -iotHubSkuCapacity $iotHubSkuCapacity -iotHubMessageRetentionInDays $iotHubMessageRetentionInDays -iotHubPartitionCount $iotHubPartitionCount -functionAppPrefix $functionAppPrefix -functionPackageUri $functionPackageUri -functionStorageAccountType $functionStorageAccountType -functionRuntime $functionRuntime
+
 
 ```
 
 ## Azure CLI
 
 ```shell
+
+# Azure Subscription Configuration
+##################################################################################################################
+
+## Input the Azure Region to deploy the resources to (i.e. canadaeast, canadacentral, eastus, etc.).
+AzureRegion="eastus"
+
+## Input the prefix for your Azure Innovation Lab (i.e. dev, tst, prod, innovation, etc.).
+AzureEnvironment="bonus"
+
+## Input the prefix for the resource group to deploy this quickstart template into.
+ResourceGroupName="texxmo"
+
+# Template Parameters
+##################################################################################################################
+
+## Input the prefix of the Azure IoT hub that you wish to create.
+iotHubNamePrefix="iot"
+
+## Input the pricing tier of the Azure IoT hub.
+iotHubSkuName="F1"
+
+## Input the pricing tier and the capacity determine the maximum daily quota of messages that you can send.
+iotHubSkuCapacity="int"
+
+## Input how long the IoT hub will maintain device-to-cloud events.
+iotHubMessageRetentionInDays=1
+
+## Input the number of partitions relates the device-to-cloud messages to the number of simultaneous readers of these messages.
+iotHubPartitionCount=2
+
+## Input the prefix of the Azure Function App that you wish to create.
+functionAppPrefix="texxmo"
+
+## The Github URL that contains the Azure Function binaries.
+functionPackageUri="https://raw.githubusercontent.com/jasonvriends/azure-quickstart/master/6-bonus/teXXmo/teXXmoProj.zip"
+
+## Storage Account Type
+functionStorageAccountType="Standard_LRS"
+
+## The language worker runtime to load in the function app.
+functionRuntime="node"
+
+# Resource Group Creation
+##################################################################################################################
+
+DeploymentResourceGroup="$ResourceGroupName-$AzureEnvironment-rg"
+az group create -n "$DeploymentResourceGroup" -l "$AzureRegion"
+
+# Template Deployment to Resource Group
+##################################################################################################################
+
+TemplateUri="https://raw.githubusercontent.com/jasonvriends/azure-quickstart/master/6-bonus/teXXmo/azuredeploy.json"
+az group deployment create --name "deploy-teXXmo-bonus" --resource-group "$DeploymentResourceGroup" --template-uri "$TemplateUri" --parameters iotHubNamePrefix=$iotHubNamePrefix iotHubSkuName=$iotHubSkuName iotHubSkuCapacity=$iotHubSkuCapacity iotHubMessageRetentionInDays=$iotHubMessageRetentionInDays iotHubPartitionCount=$iotHubPartitionCount functionAppPrefix=$functionAppPrefix functionPackageUri=$functionPackageUri functionStorageAccountType=$functionStorageAccountType functionRuntime=$functionRuntime
 
 
 ```
