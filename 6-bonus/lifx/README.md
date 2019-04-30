@@ -15,7 +15,8 @@ This template deploys an <a href="https://azure.microsoft.com/en-us/services/fun
     -   [Azure Portal](#azure-portal)
     -   [Azure PowerShell](#azure-powershell)
     -   [Azure CLI](#azure-cli)
--   [Example Use Case(s)](#example-use-case(s))
+-   [Example Use Cases](#example-use-cases)
+    -   [Change light color based on DevOps pipline build status](#change-light-color-based-on-devops-pipline-build-status)
 
 # Features/Capabilities
 * Ability to power on/off one or more LIFX Wi-Fi LED Smart Lights
@@ -162,9 +163,9 @@ az group deployment create --name "deploy-lifx" --resource-group "$DeploymentRes
 
 ```
 
-# Example Use Case(s)
+# Example Use Cases
 
-### Change light color based on DevOps pipline build status.
+## Change light color based on DevOps pipline build status.
 1. Browse to https://devops.azure.com
 2. Sign in to Azure DevOps
 3. Create a project
