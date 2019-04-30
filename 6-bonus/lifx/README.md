@@ -33,7 +33,6 @@ To deploy this quickstart template, you need the following:
 * **LIFX WiFi LED Smart Light**.
   * If you don't have one yet, you can purchase one via <a href="https://www.amazon.ca/l/14003509011">Amazon</a>.
 * **LIFX App** for <a href="https://itunes.apple.com/ca/app/lifx/id657758311?mt=8">iOS</a>, <a href="https://play.google.com/store/apps/details?id=com.lifx.lifx&hl=en">Android</a>, or <a href="https://www.microsoft.com/en-ca/p/lifx/9nblggh367vj?activetab=pivot:overviewtab">Windows 10</a>.
-* **LIFX Personal Access Token** obtainable via https://cloud.lifx.com/.
 
 # Step 2: Connect your LIFX WiFi LED Smart Light to the LIFX Cloud
 
