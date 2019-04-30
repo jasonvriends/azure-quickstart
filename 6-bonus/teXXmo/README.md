@@ -9,8 +9,9 @@ The teXXmo IoT Button enables direct customer or workforce feedback into Azure. 
     -   [Azure Portal](#azure-portal)
     -   [Azure PowerShell](#azure-powershell)
     -   [Azure CLI](#azure-cli)
--   [Step 3: Configure teXXmo Azure IoT Button](#step-3-configure-teXXmo-azure-iot-button)
--   [Step 4: Verify communication between teXXmo Azure IoT button and Azure IoT Hub](#step-4-verify-communication-between-texxmo-azure-iot-button-and-azure-iot-hub)
+-   [Step 3: Step 3: Register the teXXmo within the Azure IoT hub](#step-3-register-the-teXXmo-within-Azure-IoT-hub)
+-   [Step 4: Configure teXXmo Azure IoT Button](#step-4-configure-teXXmo-azure-iot-button)
+-   [Step 5: Verify communication between teXXmo Azure IoT button and Azure IoT Hub](#step-5-verify-communication-between-texxmo-azure-iot-button-and-azure-iot-hub)
 
 # Step 1: Prerequisites
 
@@ -30,20 +31,6 @@ To deploy this quickstart template, you need the following:
 <a href="http://armviz.io/#/?load=https%3A%2F%2Fraw.githubusercontent.com%2Fjasonvriends%2Fazure-quickstart%2Fmaster%2F6-bonus%2FteXXmo%2Fazuredeploy.json" target="_blank">
     <img src="http://armviz.io/visualizebutton.png"/>
 </a><br/>
-
-Currently, its not possible to register IoT devices via Azure Resource Manager templates. As such, following the Azure Portal deployment:
-* Browse to the **Resource Group** containing your **Azure IoT Hub**.
-* Select the **Azure IoT Hub**.
-* Under **Explorers**, select **IoT devices**.
-* Select **Add**
-  * Input **teXXmo1** for **Device ID** (or any friendly name that you prefer).
-  * Select **Symmetric key** for **Authentication type**.
-  * Select **Save** and Primary and Secondary keys will be automatically generated.
-* Select **teXXmo1**
-  * Note the following:
-    * **Primary** and **Secondary** keys.
-    * **Hostname** under **Connection string (primary key)**.
-    * These will be required for [Step 3: Configure teXXmo Azure IoT Button](#step-3-configure-teXXmo-azure-iot-button).
 
 ## Azure PowerShell
 
@@ -167,7 +154,22 @@ az group deployment create --name "deploy-teXXmo-bonus" --resource-group "$Deplo
 
 ```
 
-# Step 3: Configure teXXmo Azure IoT button
+# Step 3: Register the teXXmo within Azure IoT hub
+
+1. Browse to the **Resource Group** containing your **Azure IoT Hub**.
+2. Select the **Azure IoT Hub**.
+3. Under **Explorers**, select **IoT devices**.
+4. Select **Add**
+  * Input **teXXmo1** for **Device ID** (or any friendly name that you prefer).
+  * Select **Symmetric key** for **Authentication type**.
+  * Select **Save** and Primary and Secondary keys will be automatically generated.
+5 Select **teXXmo1**
+  * Note the following:
+    * **Primary** and **Secondary** keys.
+    * **Hostname** under **Connection string (primary key)**.
+    * These will be required for [Step 4: Configure teXXmo Azure IoT Button](#step-4-configure-teXXmo-azure-iot-button).
+
+# Step 4: Configure teXXmo Azure IoT button
 
 1. Hold power button for **5 seconds**.
    * The LED will change from **Green**, flash to **Yellow**, then finally flash **Red** which places the device in Access Point Mode, allowing you to connect to the device and configure it.
@@ -187,7 +189,7 @@ az group deployment create --name "deploy-teXXmo-bonus" --resource-group "$Deplo
 7. Select **Shutdown**
    * This will save the configuration to the device.
    
-# Step 4: Verify communication between teXXmo Azure IoT button and Azure IoT Hub.
+# Step 5: Verify communication between teXXmo Azure IoT button and Azure IoT Hub.
 
 1. Launch <a href="https://shell.azure.com">Azure Cloud Shell</a>.
 2. Install the Azure CLI IoT Extension
