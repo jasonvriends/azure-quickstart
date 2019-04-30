@@ -4,17 +4,10 @@ LIFX Wi-Fi LED Smart Lights are energy efficient LED lights that you control wit
 
 This template deploys an <a href="https://azure.microsoft.com/en-us/services/functions/">Azure Function</a> written in NodeJS, enabling you to control your LIFX Wi-Fi LED Smart Lights with a simple GET/POST to a HTTP Trigger.
 
-## Features/Capabilities
-* Ability to power on/off one or more LIFX Wi-Fi LED Smart Lights
-* Ability to adjust the color, brightness, and effect of one or more LIFX Wi-Fi LED Smart Lights
-
-## Documentation References
-* <a href="https://api.developer.lifx.com/docs">LIFX HTTP Remote Control API</a>
-* <a href="https://github.com/klarstil/lifx-http-api">LIFX HTTP API Node.JS wrapper</a>
-* <a href="https://docs.microsoft.com/en-us/azure/azure-functions/functions-run-local">Azure Functions Core Tools</a>
-
 # Table of Contents
 
+-   [Features/Capabilities](#features/capabilities)
+-   [Documentation References](#documentation-references)
 -   [Step 1: Prerequisites](#step-1-prerequisites)
 -   [Step 2: Connect your LIFX WiFi LED Smart Light to the LIFX Cloud](#step-2-connect-your-lifx-wifi-led-smart-light-to-the-lifx-cloud)
 -   [Step 3: Obtain a LIFX Personal Access Token](#step-3-obtain-a-lifx-personal-access-token)
@@ -22,6 +15,16 @@ This template deploys an <a href="https://azure.microsoft.com/en-us/services/fun
     -   [Azure Portal](#azure-portal)
     -   [Azure PowerShell](#azure-powershell)
     -   [Azure CLI](#azure-cli)
+-   [Example Use Case(s)](#example-use-case(s))
+
+# Features/Capabilities
+* Ability to power on/off one or more LIFX Wi-Fi LED Smart Lights
+* Ability to adjust the color, brightness, and effect of one or more LIFX Wi-Fi LED Smart Lights
+
+# Documentation References
+* <a href="https://api.developer.lifx.com/docs">LIFX HTTP Remote Control API</a>
+* <a href="https://github.com/klarstil/lifx-http-api">LIFX HTTP API Node.JS wrapper</a>
+* <a href="https://docs.microsoft.com/en-us/azure/azure-functions/functions-run-local">Azure Functions Core Tools</a>
 
 # Step 1: Prerequisites
 
@@ -159,7 +162,7 @@ az group deployment create --name "deploy-lifx" --resource-group "$DeploymentRes
 
 ```
 
-## Example Use Case(s)
+# Example Use Case(s)
 
 ### Change light color based on DevOps pipline build status.
 1. Browse to https://devops.azure.com
