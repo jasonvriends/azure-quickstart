@@ -177,11 +177,11 @@ az group deployment create --name "deploy-teXXmo-bonus" --resource-group "$Deplo
 3. Browse to the device web interface and REST API by accessing http://192.168.4.1 with a web browser.
 4. Select **IoT Hub Configuration**.
    * Input the **Azure IoT Hub URL**.
-     * This is the **hostname** that you either noted from the **Azure Portal** deployment or that was displayed as part of the **Azure PowerShell** or **Azure CLI** deployment. 
+     * This is the **hostname** that you either noted from [Step 3: Step 3: Register the teXXmo Azure IoT button within the Azure IoT hub](#step-3-register-the-teXXmo-azure-iot-button-within-Azure-IoT-hub).
    * Input the **IoT device name**.
-     * This is the **device id** that you either noted from the **Azure Portal** deployment or that was displayed as part of the **Azure PowerShell** or **Azure CLI** deployment.    
+     * This is the **device id** that you either noted from  [Step 3: Step 3: Register the teXXmo Azure IoT button within the Azure IoT hub](#step-3-register-the-teXXmo-azure-iot-button-within-Azure-IoT-hub).
    * Input the **IoT device secret**.
-     * This is the **primary key** that you either noted from the **Azure Portal** deployment or that was displayed as part of the **Azure PowerShell** or **Azure CLI** deployment.    
+     * This is the **primary key** that you either noted from  [Step 3: Step 3: Register the teXXmo Azure IoT button within the Azure IoT hub](#step-3-register-the-teXXmo-azure-iot-button-within-Azure-IoT-hub).
 5. Select **WiFi**
    * Configure the **SSID** and **Password** that the device will connect to.
 6. Select **User JSON** 
