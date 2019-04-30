@@ -58,7 +58,7 @@ $iotHubNamePrefix="iot"
 $iotHubSkuName="F1"
 
 ## Input the pricing tier and the capacity determine the maximum daily quota of messages that you can send.
-$iotHubSkuCapacity="int"
+$iotHubSkuCapacity=1
 
 ## Input how long the IoT hub will maintain device-to-cloud events.
 $iotHubMessageRetentionInDays=1
@@ -119,7 +119,7 @@ iotHubNamePrefix="iot"
 iotHubSkuName="F1"
 
 ## Input the pricing tier and the capacity determine the maximum daily quota of messages that you can send.
-iotHubSkuCapacity="int"
+iotHubSkuCapacity=1
 
 ## Input how long the IoT hub will maintain device-to-cloud events.
 iotHubMessageRetentionInDays=1

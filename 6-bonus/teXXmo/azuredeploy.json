@@ -178,8 +178,21 @@
             }            
           ]
         }
-      }
-    },
+      },
+      "resources": [
+        {
+          "type": "extensions",
+          "apiVersion": "2015-08-01",
+          "name": "MSDeploy",
+          "location": "[resourceGroup().location]",
+          "dependsOn": [
+              "[concat('Microsoft.Web/sites/', variables('functionAppName'))]"
+          ],
+          "properties": {
+              "packageUri": "[variables('functionPackageUri')]"
+          }
+      } ]
+      },      
     {
       "apiVersion": "2018-05-01-preview",
       "name": "[variables('functionApplicationInsightsName')]",
