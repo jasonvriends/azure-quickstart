@@ -9,7 +9,7 @@ The teXXmo IoT Button enables direct customer or workforce feedback into Azure. 
     -   [Azure Portal](#azure-portal)
     -   [Azure PowerShell](#azure-powershell)
     -   [Azure CLI](#azure-cli)
--   [Step 3: Step 3: Register the teXXmo within the Azure IoT hub](#step-3-register-the-teXXmo-within-Azure-IoT-hub)
+-   [Step 3: Step 3: Register the teXXmo within the Azure IoT hub](#step-3-register-the-teXXmo-azure-iot-button-within-Azure-IoT-hub)
 -   [Step 4: Configure teXXmo Azure IoT Button](#step-4-configure-teXXmo-azure-iot-button)
 -   [Step 5: Verify communication between teXXmo Azure IoT button and Azure IoT Hub](#step-5-verify-communication-between-texxmo-azure-iot-button-and-azure-iot-hub)
 
@@ -154,7 +154,7 @@ az group deployment create --name "deploy-teXXmo-bonus" --resource-group "$Deplo
 
 ```
 
-# Step 3: Register the teXXmo within Azure IoT hub
+# Step 3: Register the teXXmo Azure IoT button within Azure IoT hub
 
 1. Browse to the **Resource Group** containing your **Azure IoT Hub**.
 2. Select the **Azure IoT Hub**.
