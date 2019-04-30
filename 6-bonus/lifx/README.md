@@ -32,12 +32,12 @@ To deploy this quickstart template, you need the following:
   * If you don't have one yet, you can <a href="https://azure.microsoft.com/pricing/member-offers/msdn-benefits-details/">activate your MSDN subscriber benefits</a> or <a href="https://azure.microsoft.com/free">sign up for a free account</a>.
 * **LIFX WiFi LED Smart Light**.
   * If you don't have one yet, you can purchase one via <a href="https://www.amazon.ca/l/14003509011">Amazon</a>.
-* **LIFX App** for iOS, Android, or Windows 10.
+* **LIFX App** for <a href="https://itunes.apple.com/ca/app/lifx/id657758311?mt=8">iOS</a>, <a href="https://play.google.com/store/apps/details?id=com.lifx.lifx&hl=en">Android</a>, or <a href="https://www.microsoft.com/en-ca/p/lifx/9nblggh367vj?activetab=pivot:overviewtab">Windows 10</a>.
 * **LIFX Personal Access Token** obtainable via https://cloud.lifx.com/.
 
 # Step 2: Connect your LIFX WiFi LED Smart Light to the LIFX Cloud
 
-1. Download the **LIFX App** for iOS, Android, or Windows 10.
+1. Download the **LIFX App** for <a href="https://itunes.apple.com/ca/app/lifx/id657758311?mt=8">iOS</a>, <a href="https://play.google.com/store/apps/details?id=com.lifx.lifx&hl=en">Android</a>, or <a href="https://www.microsoft.com/en-ca/p/lifx/9nblggh367vj?activetab=pivot:overviewtab">Windows 10</a>.
 2. Plug in one or more LIFX Wi-Fi LED Smart Lights and power them on.
 3. Open the **LIFX App**
 * If this is your first time opening the LIFX app, tap "Register".
