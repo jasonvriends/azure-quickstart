@@ -1,8 +1,6 @@
 # 6-bonus/lifx
 
-LIFX Wi-Fi LED Smart Lights are energy efficient LED lights that you control with your iPhone, Android, or a variety of Apps & Services
-
-This template deploys an <a href="https://azure.microsoft.com/en-us/services/functions/">Azure Function</a> written in NodeJS, enabling you to control your LIFX Wi-Fi LED Smart Lights with a simple GET/POST to a HTTP Trigger.
+LIFX Wi-Fi LED Smart Lights are energy efficient LED lights that you control with your iPhone, Android, or a variety of Apps & Services. This template deploys an <a href="https://azure.microsoft.com/en-us/services/functions/">Azure Function</a> written in NodeJS, enabling you to control your LIFX Wi-Fi LED Smart Lights with a simple GET/POST to a HTTP Trigger.
 
 # Table of Contents
 
