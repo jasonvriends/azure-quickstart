@@ -4,16 +4,6 @@ LIFX Wi-Fi LED Smart Lights are energy efficient LED lights that you control wit
 
 This template deploys an <a href="https://azure.microsoft.com/en-us/services/functions/">Azure Function</a> written in NodeJS, enabling you to control your LIFX Wi-Fi LED Smart Lights with a simple GET/POST to a HTTP Trigger.
 
-## Prerequisites
-
-To deploy this quickstart template, you need the following:
-* **Azure subscription**. 
-  * If you don't have one yet, you can <a href="https://azure.microsoft.com/pricing/member-offers/msdn-benefits-details/">activate your MSDN subscriber benefits</a> or <a href="https://azure.microsoft.com/free">sign up for a free account</a>.
-* **LIFX Wi-Fi LED Smart Light**.
-  * If you don't have one yet, you can purchase one via <a href="https://www.amazon.ca/l/14003509011">Amazon</a>.
-* **LIFX App** for iOS, Android, or Windows 10.
-* **LIFX Personal Access Token** obtainable via https://cloud.lifx.com/.
-
 ## Features/Capabilities
 * Ability to power on/off one or more LIFX Wi-Fi LED Smart Lights
 * Ability to adjust the color, brightness, and effect of one or more LIFX Wi-Fi LED Smart Lights
@@ -23,9 +13,27 @@ To deploy this quickstart template, you need the following:
 * <a href="https://github.com/klarstil/lifx-http-api">LIFX HTTP API Node.JS wrapper</a>
 * <a href="https://docs.microsoft.com/en-us/azure/azure-functions/functions-run-local">Azure Functions Core Tools</a>
 
-## Setup
+# Table of Contents
 
-### Cloud Connecting your LIFX
+-   [Step 1: Prerequisites](#step-1-prerequisites)
+-   [Step 2: Connect your LIFX WiFi LED Smart Light to the LIFX Cloud](#step-2-connect-your-lifx-wifi-led-smart-light-to-the-lifx-cloud)
+-   [Step 3: Obtain a LIFX Personal Access Token](#step-3-obtain-a-lifx-personal-access-token)
+-   [Step 4: Provision Azure Services](#step-4-provision-azure-services)
+    -   [Azure Portal](#azure-portal)
+    -   [Azure PowerShell](#azure-powershell)
+    -   [Azure CLI](#azure-cli)
+
+# Step 1: Prerequisites
+
+To deploy this quickstart template, you need the following:
+* **Azure subscription**. 
+  * If you don't have one yet, you can <a href="https://azure.microsoft.com/pricing/member-offers/msdn-benefits-details/">activate your MSDN subscriber benefits</a> or <a href="https://azure.microsoft.com/free">sign up for a free account</a>.
+* **LIFX WiFi LED Smart Light**.
+  * If you don't have one yet, you can purchase one via <a href="https://www.amazon.ca/l/14003509011">Amazon</a>.
+* **LIFX App** for iOS, Android, or Windows 10.
+* **LIFX Personal Access Token** obtainable via https://cloud.lifx.com/.
+
+# Step 2: Connect your LIFX WiFi LED Smart Light to the LIFX Cloud
 
 1. Download the **LIFX App** for iOS, Android, or Windows 10.
 2. Plug in one or more LIFX Wi-Fi LED Smart Lights and power them on.
@@ -35,15 +43,16 @@ To deploy this quickstart template, you need the following:
 * Enter a password to protect your LIFX account.
 4. Follow the Step by Step instructions to <a href="http://www.lifx.com/supportcloud">add a light to your LIFX cloud account</a>.
 
-### Obtain a Personal Access Token
+# Step 3: Obtain a LIFX Personal Access Token
+
 1. Visit https://cloud.lifx.com.
 2. Sign In or Register for an account.
 3. At the top right, select your **email address** then **Settings**.
 4. Select Generate New Token, define a friendly name, and copy your token and keep it safe (we will require this later for the Azure Function deployment).
 
-## Deployment Options
+# Step 4: Provision Azure Services
 
-### Azure Portal
+## Azure Portal
 
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fjasonvriends%2Fazure-quickstart%2Fmaster%2F6-bonus%2Flifx%2Fazuredeploy.json" target="_blank">
     <img src="http://azuredeploy.net/deploybutton.png"/>
@@ -52,7 +61,7 @@ To deploy this quickstart template, you need the following:
     <img src="http://armviz.io/visualizebutton.png"/>
 </a><br/>
 
-### Azure PowerShell
+## Azure PowerShell
 
 ```powershell
 
@@ -90,7 +99,7 @@ $runtime="node"
 ##################################################################################################################
 
 $DeploymentResourceGroup="$ResourceGroupName-$AzureEnvironment-rg"
-New-AzureRmResourceGroup -Name "$DeploymentResourceGroup" -Location "$AzureRegion" -ErrorVariable notCreated -ErrorAction SilentlyContinue
+New-AzureRmResourceGroup -Name "$DeploymentResourceGroup" -Location "$AzureRegion"
 
 # Template Deployment to Resource Group
 ##################################################################################################################
@@ -101,7 +110,7 @@ New-AzResourceGroupDeployment -Name "deploy-lifx" -ResourceGroupName "$Deploymen
 
 ```
 
-### Azure CLI
+## Azure CLI
 
 ```shell
 
