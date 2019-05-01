@@ -17,6 +17,8 @@ To deploy this quickstart template, you need the following:
   * If you don't have one yet, you can <a href="https://azure.microsoft.com/pricing/member-offers/msdn-benefits-details/">activate your MSDN subscriber benefits</a> or <a href="https://azure.microsoft.com/free">sign up for a free account</a>.
 * **Azure Virtual Network**. 
   * If you don't have an Azure Virtual Network, please follow the <a href="https://github.com/jasonvriends/azure-quickstart/tree/master/2-virtual-network">virtual-network</a> quickstart template.
+* **Apache Guacamole**. 
+  * If you don't have Apache Guacamole deployed, please follow the <a href="https://github.com/jasonvriends/azure-quickstart/tree/master/4-apache-guacamole">apache-guacamole</a> quickstart template.
 
 # Step 2: Provision Azure Services
 
@@ -196,4 +198,6 @@ az group deployment create --name "deploy-dltworkshop" --resource-group "$Deploy
 
 # Step 3: DLT Workshop
 
-1. Refer to the <a href="https://raw.githubusercontent.com/jasonvriends/azure-quickstart/master/6-bonus/BlockchainPoC/BlockchainOnCloudWorkshopGuide.pdf">BlockchainOnCloudWorkshopGuide.pdf</a> start the workshop. 
+1. Login to **Apache Guacamole**
+2. Create a connection to dltworkshop-vm.
+3. Follow the instructions outlined in <a href="https://raw.githubusercontent.com/jasonvriends/azure-quickstart/master/6-bonus/BlockchainPoC/BlockchainOnCloudWorkshopGuide.pdf">BlockchainOnCloudWorkshopGuide.pdf</a>. 
