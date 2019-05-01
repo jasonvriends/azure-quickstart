@@ -8,6 +8,7 @@ This is a basic Blockchain project that can be used as a base Blockchain framewo
 -   [Step 2: Provision Azure Services](#step-2-provision-azure-services)
     -   [Azure Portal](#azure-portal)
     -   [Azure PowerShell](#azure-powershell)
+-   [Step 3: DLT Workshop](#step-3-dlt-workshop)
 
 # Step 1: Prerequisites
 
@@ -193,4 +194,6 @@ az group deployment create --name "deploy-dltworkshop" --resource-group "$Deploy
 
 ```
 
+# Step 3: DLT Workshop
 
+1. Refer to the <a href="https://raw.githubusercontent.com/jasonvriends/azure-quickstart/master/6-bonus/BlockchainPoC/BlockchainOnCloudWorkshopGuide.pdf">BlockchainOnCloudWorkshopGuide.pdf</a> start the workshop. 
