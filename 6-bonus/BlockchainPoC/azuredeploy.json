@@ -100,7 +100,7 @@
         },
         "vnetSubnetName": {
             "type": "string",
-            "defaultValue": "desktops",
+            "defaultValue": "desktops-subnet",
             "metadata": {
                 "description": "Input the name of your Virtual Network subnet."
             }
