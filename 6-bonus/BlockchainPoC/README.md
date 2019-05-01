@@ -75,7 +75,7 @@ $instances=1
 $extensionUri="https://raw.githubusercontent.com/jasonvriends/azure-quickstart/master/6-bonus/BlockchainPoC/install-ubuntu-desktop-with-blockchainscripts.sh"
 
 # Input the command to execute of your desired Custom Script Extension. Note: As of 2019-01-24 this has only been tested on Ubuntu Linux.
-$extensionCommand="./install-ubuntu-desktop.sh"
+$extensionCommand="./install-ubuntu-desktop-with-blockchainscripts.sh"
 
 # Input your desired Virtual Machine administrator username.
 $adminUsername="vmadmin"
@@ -158,7 +158,7 @@ instances=1
 extensionUri="https://raw.githubusercontent.com/jasonvriends/azure-quickstart/master/6-bonus/BlockchainPoC/install-ubuntu-desktop-with-blockchainscripts.sh"
 
 # Input the command to execute of your desired Custom Script Extension. Note: As of 2019-01-24 this has only been tested on Ubuntu Linux.
-extensionCommand="./install-ubuntu-desktop.sh"
+extensionCommand="./install-ubuntu-desktop-with-blockchainscripts.sh"
 
 # Input your desired Virtual Machine administrator username.
 adminUsername="vmadmin"

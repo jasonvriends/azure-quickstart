@@ -29,7 +29,7 @@
         "value": "https://raw.githubusercontent.com/jasonvriends/azure-quickstart/master/6-bonus/BlockchainPoC/install-ubuntu-desktop-with-blockchainscripts.sh"
       },        
       "extensionCommand": {
-        "value": "./install-ubuntu-desktop.sh"            
+        "value": "./install-ubuntu-desktop-with-blockchainscripts.sh"            
       },        
       "adminUsername": {
         "value": "vmadmin"

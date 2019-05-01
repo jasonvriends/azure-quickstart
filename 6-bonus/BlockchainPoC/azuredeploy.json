@@ -61,7 +61,7 @@
         },        
         "extensionCommand": {
             "type": "string",
-            "defaultValue": "./install-ubuntu-desktop.sh",            
+            "defaultValue": "./install-ubuntu-desktop-with-blockchainscripts.sh",            
             "metadata": {
                 "description": "Input the command to execute of your desired Custom Script Extension. <br/><br/>Note: As of 2019-01-24 this has only been tested on Ubuntu Linux."
             }
