@@ -1,0 +1,58 @@
+
+
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "dnsLabelPrefix": {
+        "value": "dltworkshop"
+      },
+      "size": {
+        "value": "Standard_E4_v3"
+      },
+      "osPublisher": {
+        "value": "Canonical"
+      },
+      "osOffer": {
+        "value": "UbuntuServer"
+      },
+      "osSKU": {
+        "value": "18.04-LTS"
+      },
+      "osVersion": {
+        "value": "latest"
+      },
+      "instances": {
+        "value": 1
+      },
+      "extensionUri": {
+        "value": "https://raw.githubusercontent.com/jasonvriends/azure-quickstart/master/6-bonus/BlockchainPoC/install-ubuntu-desktop-with-blockchainscripts.sh"
+      },        
+      "extensionCommand": {
+        "value": "./install-ubuntu-desktop.sh"            
+      },        
+      "adminUsername": {
+        "value": "vmadmin"
+      },
+      "authenticationType": {
+        "value": "password"
+      },
+      "pwdOrPsk": {
+        "value": "@Canada2019@"
+      },
+      "vnetName": {
+        "value": "innovation-vnet"
+      },
+      "vnetSubnetName": {
+        "value": "desktops-subnet"
+      },
+      "vnetResourceGroup": {
+        "value": "networking-innovation-rg"
+      },
+      "ipAddress": {
+        "value": "private"
+      }
+  }
+}
+
+
