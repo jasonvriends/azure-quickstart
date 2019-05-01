@@ -200,4 +200,4 @@ az group deployment create --name "deploy-dltworkshop" --resource-group "$Deploy
 
 1. Login to **Apache Guacamole**
 2. Create a connection to dltworkshop-vm.
-3. Follow the instructions outlined in <a href="https://raw.githubusercontent.com/jasonvriends/azure-quickstart/master/6-bonus/BlockchainPoC/BlockchainOnCloudWorkshopGuide.pdf">BlockchainOnCloudWorkshopGuide.pdf</a>. 
+3. Follow the instructions outlined in <a href="https://raw.githubusercontent.com/jasonvriends/azure-quickstart/master/6-bonus/BlockchainPoC/BlockchainOnCloudWorkshopGuide.pdf">BlockchainOnCloudLabGuide.docx</a>. 
