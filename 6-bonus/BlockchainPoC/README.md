@@ -1,6 +1,6 @@
 # 6-bonus/Blockchain PoC
 
-This is a basic Blockchain project that can be used as a base Blockchain framework for a PoC. This particular project deploys Hyperledger Fabric/Compose toolsets on Ubuntu desktop OS and installs all the needed tools for Blockchain development.  Once you have access to the development VM, Please use the <a href="https://raw.githubusercontent.com/jasonvriends/azure-quickstart/master/6-bonus/BlockchainPoC/BlockchainOnCloudWorkshopGuide.pdf">BlockchainOnCloudWorkshopGuide.pdf</a> document to finish off the installation. 
+This is a basic Blockchain project that can be used as a base Blockchain framework for a PoC. This particular project deploys Hyperledger Fabric/Compose toolsets on Ubuntu desktop OS and installs all the needed tools for Blockchain development.  Once you have access to the development VM, Please use the <a href="https://raw.githubusercontent.com/jasonvriends/azure-quickstart/master/6-bonus/BlockchainPoC/BlockchainOnCloudLabGuide.docx">BlockchainOnCloudLabGuide.docx</a> document to finish off the installation. 
 
 # Table of Contents
 
